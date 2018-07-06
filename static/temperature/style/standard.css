@@ -22,7 +22,7 @@ header{
 	position: fixed;
 	float: left;
 	font-family: arial;
-	background-color: black;
+	background: rgba(0, 8, 255, 0.58);
 	padding: 0px;
 	margin: 0px;
 	color: grey;
@@ -48,7 +48,7 @@ header ul li{
 }
 
 #logo, .header-link{
-	color: grey;
+	color: black;
 	font-size: 30px;
 	text-decoration: none;
 	margin: 0px 10px;
@@ -56,7 +56,7 @@ header ul li{
 
 /*Change color of link when being clicked */
 #logo:active, .header-link:active {
-	color: rgba(255,255,255,.4);
+	color: rgba(168, 175, 255, 0.32);
 }
 
 footer{
