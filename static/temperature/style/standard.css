@@ -22,7 +22,6 @@ header{
 	position: fixed;
 	float: left;
 	font-family: arial;
-	background: rgba(0, 8, 255, 0.58);
 	padding: 0px;
 	margin: 0px;
 	color: grey;
@@ -71,7 +70,6 @@ footer{
 	position: fixed;
 	float: left;
 	font-family: arial;
-	background: rgba(0, 8, 255, 0.58);
 	padding: 5px 0px 0px 5px;
 	margin: 0px;
 	color: black;
@@ -82,11 +80,6 @@ footer{
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
-}
-
-#header{
-	color: grey;
-	top:0px;
 }
 
 #wrapper{
@@ -135,4 +128,5 @@ footer{
 
 header, footer {
 	min-width: 700px;
+	background: rgb(103, 108, 245);
 }
