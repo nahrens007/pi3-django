@@ -71,10 +71,10 @@ footer{
 	position: fixed;
 	float: left;
 	font-family: arial;
-	background-color: black;
+	background: rgba(0, 8, 255, 0.58);
 	padding: 5px 0px 0px 5px;
 	margin: 0px;
-	color: grey;
+	color: black;
 	bottom: 0px;
 	text-align: center;
 
