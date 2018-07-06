@@ -84,14 +84,6 @@ footer{
 	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-
-.header-link{
-	color: grey;
-	font-size: 30px;
-	text-decoration: none;
-	margin: 0px 10px;
-}
-
 #header{
 	color: grey;
 	top:0px;
