@@ -9,7 +9,7 @@
     <!-- Load site-wide CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
     <!-- Load page-specific CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/readins.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/readings.css' %}">
 
     <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
 
@@ -27,118 +27,15 @@
 			</section>
 
 			<section id="main">
-
-				<?php
-
-					$servername = "localhost";
-					$username = "nahrens";
-					$password = "gmandfam2";
-					$database = "nahrens_database";
-					// Create connection
-					$conn = new mysqli($servername, $username, $password, $database);
-					// Check connection
-					if ($conn->connect_error) {
-							die("Connection to temperature database failed: " . $conn->connect_error);
-					}
-					//echo "Connected successfully";
-
-					// Get the readings from within a certain amount of minutes ago
-					$time = 0;
-					if(isset($_GET['min'])){
-						$time = intval($_GET['min']);
-					}
-
-					// If 'min' is less than 0 or not declared, only list the number of entries
-					// and give the option to fill in the 'min' to load results
-					if($time < 1){
-						$query = "SELECT * FROM sensor_readings;";
-						$result = $conn->query($query);
-						$row_count = $result->num_rows;
-						// Display the number of results
-						echo "<p>" . $result->num_rows . " results.</p>";	?>
-
-<form action="" method="get">
-	<fieldset name="messageForm" id="messageForm">
-		<label>
-			Please enter the number of minutes you want to get results from:
-			<input type="text" placeholder="Minutes" name="min" id="min" required="required" />
-		</label>
-		<input type="submit" id="submit" value="Submit" />
-
-		</fieldset>
-
-
-</form>
-				<?php
-					}else{
-						$query = "SELECT * FROM sensor_readings WHERE date > NOW() - INTERVAL {$time} MINUTE;";
-						$result = $conn->query($query);
-						$data_array = array();
-
-						if ($result->num_rows > 0) {
-
-							$row_count = $result->num_rows;
-
-							// load data into array
-							while($row = $result->fetch_assoc()) {
-								$data_array[] = $row;
-							}
-
-							// Display the number of results
-							echo "<p>" . $result->num_rows . " results.</p>";
-
-							echo "<div id=\"data-wrapper\">";
-
-							// Display the dates
-							echo "<div id=\"date-data\">";
-							echo "<p class=\"name\">Date</p>";
-
-							for($i = 0; $i < $row_count; $i++){
-								echo "<p class=\"values\">" . $data_array[$i]['date'] . "</p>" . "<br/>";
-							}
-
-							echo "</div>";
-
-							// Display the temperatures
-							echo "<div id=\"temp-data\">";
-							echo "<p class=\"name\">Temperature</p>";
-
-							for($i = 0; $i < $row_count; $i++){
-								echo "<p class=\"values\">" . $data_array[$i]['temperature'] . "</p>" . "<br/>";
-							}
-
-							echo "</div>";
-
-							// Display the humidity
-							echo "<div id=\"humidity-data\">";
-							echo "<p class=\"name\">Humidity</p>";
-
-							for($i = 0; $i < $row_count; $i++){
-								echo "<p class=\"values\">" . $data_array[$i]['humidity'] . "</p>" . "<br/>";
-							}
-
-							echo "</div>";
-
-							// Display the heat index
-							echo "<div id=\"heat_index-data\">";
-							echo "<p class=\"name\">Heat index</p>";
-
-							for($i = 0; $i < $row_count; $i++){
-								echo "<p class=\"values\">" . $data_array[$i]['heat_index'] . "</p>" . "<br/>";
-							}
-
-							echo "</div>";
-
-							echo "</div>"; // end data-wrapper div
-						}
-					} // end else
-
-
-
-
-					$conn->close();
-				?>
-
+        <form action="" method="get">
+        	<fieldset name="messageForm" id="messageForm">
+        		<label>
+        			Please enter the number of minutes you want to get results from:
+        			<input type="text" placeholder="Minutes" name="min" id="min" required="required" />
+        		</label>
+        		<input type="submit" id="submit" value="Submit" />
+        	</fieldset>
+        </form>
 			</section>
 
 			<aside id="right">
