@@ -23,60 +23,6 @@
 			</section>
 
 			<section id="main">
-				<p>
-					<?php
-
-						$first_name = $_POST['first_name'];
-						$last_name = $_POST['last_name'];
-						$email = $_POST['email'];
-						$subject = $_POST['subject'];
-						$message = $_POST['message'];
-						$to = 'nathanmahrens@gmail.com';
-						$msg = "<h3>$first_name $last_name is sending you an email regarding <h2>$subject</h2></h3><br />" .
-							"$first_name's email is: $email.<br /><br />$message<br /><br />" .
-							"<h3>End of message</h3>";
-
-						require 'PHPMailerAutoload.php';
-						$mail = new PHPMailer;
-						$mail->isSMTP(); // Set mailer to use SMTP
-						//$mail->SMTPDebug = 1;
-						$mail->Host = 'smtp.gmail.com';                     // Specify main and backup server
-						$mail->SMTPAuth = true;                             // Enable SMTP authentication
-						$mail->Username = 'bros.redninja@gmail.com';        // SMTP username
-						$mail->Password = 'Germanfam102';               	// SMTP password
-						$mail->SMTPSecure = 'tls';                          // Enable encryption, 'ssl' also accepted
-						$mail->Port = 587;                                  //Set the SMTP port number - 587 for authenticated TLS
-						$mail->setFrom('bros.redninja@gmail.com', "Contact $first_name");	//Set who the message is to be sent from
-						$mail->addReplyTo($email, "$first_name $last_name");	//Set an alternative reply-to address
-						$mail->addAddress($to, "Nathan Ahrens");
-						$mail->WordWrap = 75;                                 // Set word wrap to 50 characters
-						$mail->isHTML(true);                                  // Set email format to HTML
-
-						$mail->Subject = $subject;
-						$mail->Body    = $msg;
-						$mail->AltBody = $message;
-
-						if(!$mail->send()) {
-							echo '<p>Message could not be sent.<p><br/>';
-							echo '<h3>Mailer Error: </h3>' . $mail->ErrorInfo;
-							exit;
-						}
-
-						echo '<p>Message has been sent<br/>';
-
-
-						$dbc = mysqli_connect('localhost', 'nahrens', 'gmandfam2', 'nahrens_database')
-							or die('Error connecting to server.');
-						$query = "INSERT INTO contact_history(first_name, last_name, email," .
-							" subject, message) VALUES ('$first_name', '$last_name', '$email', '$subject', '$message')";
-
-						$result = mysqli_query($dbc, $query)
-							or die('Error querying database.<br/>' . 'Error message: ' . $dbc->error);
-						mysqli_close($dbc);
-
-					?>
-
-				</p>
 			</section>
 
 			<aside id="right">

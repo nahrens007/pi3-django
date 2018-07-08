@@ -7,4 +7,6 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('sensor', views.sensor, name='sensor'),
     path('sensorgraph', views.sensorgraph, name='sensorgraph'),
+    path('days', views.days, name='days'),
+    path('clock', views.clock, name='clock'),
 ]

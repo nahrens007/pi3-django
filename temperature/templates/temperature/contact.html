@@ -45,7 +45,7 @@
 			</section>
 
 			<section id="main">
-				<form action="email_contact.php" method="post">
+				<form action="{% url 'contact' %}" method="post">{% csrf_token %}
 					<fieldset name="messageForm" id="messageForm">
 						<label>
 						First Name

@@ -33,3 +33,16 @@ def sensorgraph(request):
 
     }
     return render(request, 'temperature/sensorgraph.html', context)
+
+def days(request):
+    context = {
+
+    }
+    return render(request, 'temperature/days.html', context)
+
+def clock(request):
+    context = {
+        'count': '5',
+        'file':'File Contents',
+    }
+    return render(request, 'temperature/clock.html', context)

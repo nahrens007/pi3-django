@@ -90,7 +90,6 @@ footer{
  }
 
  #left, #right, #main {
-	 display: table-cell;
 	 padding-left: 8px;
 	 padding-top: 8px;
 	 padding-bottom: 8px;
@@ -98,6 +97,7 @@ footer{
 
 #left, #right {
 	width: 200px;
+	display: table-cell;
 }
 #main {
 	border-style: outset;

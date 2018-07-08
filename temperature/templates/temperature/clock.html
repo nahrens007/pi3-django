@@ -22,12 +22,21 @@
 				background-color: rgba(0, 0, 0, .7);
 				color: lightgreen;
 				border: 2px solid white;
+                                -webkit-box-sizing: border-box;
+                                -moz-box-sizing: border-box;
+                                -o-box-sizing: border-box;
+                                -ms-box-sizing: border-box;
+                                box-sizing: border-box; 
+                                padding: 5px;
 			}
 			textarea:focus {
 				//background-color: rgb(225, 225, 240);
 				background-color: black;
 				color: rgb(0, 204, 0);
 				border: 2px solid lightblue;
+			}
+			#main {
+				padding: 10px;
 			}
 		</style>
 	</head>
@@ -47,23 +56,11 @@
 					Changing the contents of the settings will change the settings of any instance of the clock running.
 				</p>
 				<p>
-					Currently, the number of times the settings have been updated is:
-					<?php
-						$file = fopen("process_form_count.txt", "r") or die("Unable to open process count file!");
-						echo fgets($file);
-						fclose($file);
-					?>
+					Currently, the number of times the settings have been updated is: {{ count }}
 				</p>
 
-				<form action="processform.php" method="post">
-					<textarea name="settings" id="settings"><?php
-							// Load file into the textarea
-							$settingsFile = fopen("clock_settings.txt", "r") or die("Error loading file...");
-							while (!feof($settingsFile)){
-								echo fgets($settingsFile);
-							}
-							fclose($settingsFile);
-						?></textarea><br>
+				<form action="{% url 'clock' %}" method="post">{% csrf_token %}
+					<textarea name="settings" id="settings">{{ file }}</textarea><br>
 
 					<input type="submit" />
 				</form>
