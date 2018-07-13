@@ -46,3 +46,9 @@ def clock(request):
         'file':'File Contents',
     }
     return render(request, 'temperature/clock.html', context)
+
+def boot(request):
+    context = {
+
+    }
+    return render(request, 'temperature/boot.html', context)
