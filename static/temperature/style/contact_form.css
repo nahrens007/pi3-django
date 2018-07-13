@@ -1,0 +1,68 @@
+/*
+   CSS for contact.php form
+*/
+
+fieldset {
+	background-color: rgba(245, 245, 255, .2);
+	margin: 15px auto;
+	padding: 5px;
+	width: 90%;
+}
+
+label {
+	display: block;
+	clear: left;
+	float: left;
+	font-size: 1em;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+input, textarea {
+	display: block;
+	float: right;
+	width: 55%;
+	font-size: 1.1em;
+	margin-left: 10px;
+	margin-right: 10px;
+
+}
+
+textarea {
+	height: 150px;
+	font-size: 1.2em;
+}
+
+input[type="submit"] {
+	display: block;
+	clear: both;
+	float: none;
+	width: 200px;
+	height: 30px;
+	margin: 5px auto;
+}
+
+input:focus, textarea:focus {
+	background-color: rgb(225, 225, 240);
+}
+
+input:focus:valid {
+	background: rgb(225, 240, 225) url(go.png) bottom right no-repeat;
+
+	-o-background-size: contain;
+	-moz-background-size: contain;
+	-webkit-background-size: contain;
+	background-size: contain;
+
+}
+
+input:focus:invalid {
+	background: rgb(240, 225, 225) url(stop.png) bottom right no-repeat;
+
+	-o-background-size: contain;
+	-moz-background-size: contain;
+	-webkit-background-size: contain;
+	background-size: contain;
+
+}
