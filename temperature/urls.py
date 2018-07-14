@@ -9,5 +9,4 @@ urlpatterns = [
     path('sensorgraph', views.sensorgraph, name='sensorgraph'),
     path('days', views.days, name='days'),
     path('clock', views.clock, name='clock'),
-    path('boot', views.boot, name='boot'),
 ]
