@@ -35,7 +35,14 @@ def sensorgraph(request):
     return render(request, 'temperature/sensorgraph.html', context)
 
 def days(request):
+    import datetime
+    current = datetime.date.today()
+    begin = datetime.date(2017, 8, 22)
+    days = (current - begin).days
     context = {
+        'days': str(days),
+        'begin': begin.strftime("%m-%d-%Y"),
+        'current': current.strftime("%m-%d-%Y"),
 
     }
     return render(request, 'temperature/days.html', context)

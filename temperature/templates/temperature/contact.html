@@ -1,92 +1,60 @@
-<!DOCTYPE html>
+{% extends 'layout.html'  %}
 
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Contact</title>
+{% block title %}Contact{% endblock %}
 
-    {% load static %}
-    <!-- Load site-wide CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
-    <!-- Load page-specific CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/contact_form.css' %}">
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'temperature/style/contact_form.css' %}">
+<script>
+	function update() {
+		var limit = 1000;
+		var count = document.getElementById('message').value.length;
+		document.getElementById('current_char').innerHTML= count + "/1000";
+		if(count > limit) {
+			alert('Too much data in the text box!');
+		}
+	 }
 
-    <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
+</script>
+<style type="text/css">
+	#current_char
+	{
+		font-size: .9em;
+		font-family:"Courier New", Courier, monospace;
+		display: inline;
+	}
+</style>
+{% endblock %}
 
-		<script>
-			function update() {
-				var limit = 1000;
-				var count = document.getElementById('message').value.length;
-				document.getElementById('current_char').innerHTML= count + "/1000";
-				if(count > limit) {
-					alert('Too much data in the text box!');
-				}
-			 }
+{% block main_content %}
+<form action="{% url 'contact' %}" method="post">{% csrf_token %}
+	<fieldset name="messageForm" id="messageForm">
+		<label>
+		First Name
+		<input type="text" placeholder="Supply your first name" name="first_name" id="first_name" required="required" />
+		</label>
+		<label>
+		Last Name
+		<input type="text" placeholder="Supply your last name" name="last_name" id="last_name" required="required" />
+		</label>
 
-		</script>
-		<style type="text/css">
-			#current_char
-			{
-				font-size: .9em;
-				font-family:"Courier New", Courier, monospace;
-				display: inline;
-			}
-		</style>
-	</head>
+		<label>
+		E-mail
+		<input type="email" placeholder="Supply a valid e-mail address" name="email" id="email" required="required" />
+		</label>
 
-	<body>
-		<header>
-			{% include 'temperature/header.html' %}
-		</header>
+		<label>
+		Subject
+		<input type="text" placeholder="Supply a subject" name="subject" id="subject" required="required" />
+		</label>
 
-		<div id="wrapper">
+		<label>
+		Message <br />(<p id="current_char">0/1000</p>)
+		<textarea name="message" id="message" maxlength="1000" onkeyup="update();"></textarea>
+		</label>
 
-			<section id="left">
-			</section>
+		<input type="submit" name="submit" id="submit" value="Submit Message" />
 
-			<section id="main">
-				<form action="{% url 'contact' %}" method="post">{% csrf_token %}
-					<fieldset name="messageForm" id="messageForm">
-						<label>
-						First Name
-						<input type="text" placeholder="Supply your first name" name="first_name" id="first_name" required="required" />
-						</label>
-						<label>
-						Last Name
-						<input type="text" placeholder="Supply your last name" name="last_name" id="last_name" required="required" />
-						</label>
-
-						<label>
-						E-mail
-						<input type="email" placeholder="Supply a valid e-mail address" name="email" id="email" required="required" />
-						</label>
-
-						<label>
-						Subject
-						<input type="text" placeholder="Supply a subject" name="subject" id="subject" required="required" />
-						</label>
-
-						<label>
-						Message <br />(<p id="current_char">0/1000</p>)
-						<textarea name="message" id="message" maxlength="1000" onkeyup="update();"></textarea>
-						</label>
-
-						<input type="submit" name="submit" id="submit" value="Submit Message" />
-
-						</fieldset>
-
-
-				</form>
-			</section>
-
-			<aside id="right">
-			</aside>
-
-		</div>
-
-		<footer>
-			{% include 'temperature/footer.html' %}
-		</footer>
-
-	</body>
-</html>
+	</fieldset>
+</form>
+{% endblock %}

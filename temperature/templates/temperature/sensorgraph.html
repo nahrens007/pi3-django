@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>Graph</title>
+{% extends 'layout.html' %}
+{% block title %}Sensor Graph{% endblock %}
+{% block head %}
+<style type="text/css">
+	#left, #right {
+		display: none;
+	}
 
-		{% load static %}
-		<!-- Load site-wide CSS -->
-    	<link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
-		<link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
+	chart_div {
+		width: 800px;
+	}
+	.custom_tooltip, .temp_value{
+		font-size: 24px;
+		font-family: Arial;
+		color: red;
+		background-color: black;
+		margin: 0px;
+		padding: 4px;
+	}
+	.temp_value{
+		color: lightblue;
+		margin: 0px;
+		padding: 0px;
+	}
+	footer{
+		display: none;
+	}
 
-		<style type="text/css">
-			#left, #right {
-				display: none;
-			}
-
-			chart_div {
-				width: 800px;
-			}
-			.custom_tooltip, .temp_value{
-				font-size: 24px;
-				font-family: Arial;
-				color: red;
-				background-color: black;
-				margin: 0px;
-				padding: 4px;
-			}
-			.temp_value{
-				color: lightblue;
-				margin: 0px;
-				padding: 0px;
-			}
-			footer{
-				display: none;
-			}
-
-		</style>
-
+</style>
 		<!--Load the AJAX API-->
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -447,31 +438,8 @@
 			  chart.draw(data, options);
 		}
 		</script>
-	</head>
-
-	<body>
-		<header>
-			{% include 'temperature/header.html' %}
-		</header>
-
-		<div id="wrapper">
-
-			<section id="left">
-			</section>
-
-			<section id="main">
-				<p>Fri Jul 13 00:00:02 2018</p>
-				<div id="chart_div"></div>
-			</section>
-
-			<aside id="right">
-			</aside>
-
-		</div>
-
-		<footer>
-			{% include 'temperature/footer.html' %}
-		</footer>
-
-	</body>
-</html>
+{% endblock %}
+{% block main_content %}
+<p>Fri Jul 13 00:00:02 2018</p>
+<div id="chart_div"></div>
+{% endblock %}

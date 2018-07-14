@@ -1,51 +1,13 @@
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Sensor Readings</title>
-
-    {% load static %}
-    <!-- Load site-wide CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
-    <!-- Load page-specific CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/readings.css' %}">
-
-    <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
-
-	</head>
-
-	<body>
-		<header>
-			{% include 'temperature/header.html' %}
-		</header>
-
-		<div id="wrapper">
-
-			<section id="left">
-
-			</section>
-
-			<section id="main">
-        <form action="" method="get">
-        	<fieldset name="messageForm" id="messageForm">
-        		<label>
-        			Please enter the number of minutes you want to get results from:
-        			<input type="number" placeholder="Minutes" name="min" id="min" required="required" />
-        		</label>
-        		<input type="submit" id="submit" value="Submit" />
-        	</fieldset>
-        </form>
-			</section>
-
-			<aside id="right">
-			</aside>
-
-		</div>
-
-		<footer>
-			{% include 'temperature/footer.html' %}
-		</footer>
-
-	</body>
-</html>
+{% extends 'layout.html' %}
+{% block title %}Sensor Readings{% endblock %}
+{% block main_content %}
+<form action="" method="get">
+	<fieldset name="messageForm" id="messageForm">
+		<label>
+			Please enter the number of minutes you want to get results from:
+			<input type="number" placeholder="Minutes" name="min" id="min" required="required" />
+		</label>
+		<input type="submit" id="submit" value="Submit" />
+	</fieldset>
+</form>
+{% endblock %}

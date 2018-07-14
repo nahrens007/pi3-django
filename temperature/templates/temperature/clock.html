@@ -1,79 +1,46 @@
-<!DOCTYPE html>
+{% extends 'layout.html'  %}
 
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Clock Settings</title>
+{% block title %}Clock Settings{% endblock %}
 
-    {% load static %}
-    <!-- Load site-wide CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
+{% block head %}
+<style type="text/css" >
+	textarea {
+		height: 500px;
+		width: 100%;
+		display: block;
+		background-color: rgba(0, 0, 0, .7);
+		color: lightgreen;
+		border: 2px solid white;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box; 
+        padding: 5px;
+	}
+	textarea:focus {
+		//background-color: rgb(225, 225, 240);
+		background-color: black;
+		color: rgb(0, 204, 0);
+		border: 2px solid lightblue;
+	}
+	#main {
+		padding: 10px;
+	}
+</style>
+{% endblock %}
 
-    <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
+{% block main_content %}
+    <p>
+		Changing the contents of the settings will change the settings of any instance of the clock running.
+	</p>
+	<p>
+		Currently, the number of times the settings have been updated is: {{ count }}
+	</p>
 
-		<style type="text/css" >
+	<form action="{% url 'clock' %}" method="post">{% csrf_token %}
+		<textarea name="settings" id="settings">{{ file }}</textarea><br>
 
-
-			textarea {
-
-				height: 500px;
-				width: 100%;
-				display: block;
-				background-color: rgba(0, 0, 0, .7);
-				color: lightgreen;
-				border: 2px solid white;
-                                -webkit-box-sizing: border-box;
-                                -moz-box-sizing: border-box;
-                                -o-box-sizing: border-box;
-                                -ms-box-sizing: border-box;
-                                box-sizing: border-box; 
-                                padding: 5px;
-			}
-			textarea:focus {
-				//background-color: rgb(225, 225, 240);
-				background-color: black;
-				color: rgb(0, 204, 0);
-				border: 2px solid lightblue;
-			}
-			#main {
-				padding: 10px;
-			}
-		</style>
-	</head>
-
-	<body>
-		<header>
-			{% include 'temperature/header.html' %}
-		</header>
-
-		<div id="wrapper">
-
-			<section id="left">
-			</section>
-
-			<section id="main">
-				<p>
-					Changing the contents of the settings will change the settings of any instance of the clock running.
-				</p>
-				<p>
-					Currently, the number of times the settings have been updated is: {{ count }}
-				</p>
-
-				<form action="{% url 'clock' %}" method="post">{% csrf_token %}
-					<textarea name="settings" id="settings">{{ file }}</textarea><br>
-
-					<input type="submit" />
-				</form>
-			</section>
-
-			<aside id="right">
-			</aside>
-
-		</div>
-
-		<footer>
-			{% include 'temperature/footer.html' %}
-		</footer>
-
-	</body>
-</html>
+		<input type="submit" />
+	</form>
+{% endblock %}

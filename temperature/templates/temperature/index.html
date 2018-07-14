@@ -1,36 +1,10 @@
-<!DOCTYPE html>
+{% extends 'layout.html'  %}
 
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Nathan Ahrens</title>
+{% block title %}Nathan Ahrens{% endblock %}
 
-    {% load static %}
-    <!-- Load site-wide CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
-
-    <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
-
-    <style type="text/css">
-      p{
-      	margin: 5px;
-      }
-      p a{
-      	color: black;
-      	text-decoration: none;
-      }
-    </style>
-
-  </head>
-
-  <body>
-    <header>
-      {% include 'temperature/header.html' %}
-    </header>
-    <div id="wrapper">
-
-      <section id="main">
-        <p>Major: Computer Science</p><br>
+{% block main_content %}
+      <h1>Nathan Ahrens</h1>
+      <p>Major: Computer Science</p><br>
         <p>Minor: Information System</p>
         <h2>Bio:</h2>
         <p>
@@ -44,20 +18,11 @@
               <li>HTML5/CSS/PHP</li>
               <li>Python</li>
             </ul>
-
+            
             <li>Googling</li>
             <li>Trouble Shooting</li>
             <li>Debugging</li>
           </ul>
+          <p><a class="project" href="https://github.com/redninja2" target="_top">GitHub Account</a></p>
         </p>
-        <p><a class="project" href="https://github.com/redninja2" target="_top">GitHub Account</a></p>
-      </section>
-
-    </div>
-
-    <footer>
-      <p>Total number of visitors: {{ visit_count }}</p>
-      {% include 'temperature/footer.html' %}
-    </footer>
-  </body>
-</html>
+{% endblock %}

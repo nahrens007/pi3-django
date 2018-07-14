@@ -1,0 +1,25 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'index' %}">Ahrens</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li {% if request.path == "/" %}class="active"{% endif %}><a href="{% url 'index' %}">Home</a></li>
+        <li {% if request.path == "/days" %}class="active"{% endif %}><a href="{% url 'days' %}">Days</a></li>
+        <li {% if request.path == "/clock" %}class="active"{% endif %}><a href="{% url 'clock' %}">Clock</a></li>
+        <li {% if request.path == "/sensor" %}class="active"{% endif %}><a href="{% url 'sensor' %}">Sensor</a></li>
+        <li {% if request.path == "/sensorgraph" %}class="active"{% endif %}><a href="{% url 'sensorgraph' %}">Graph</a></li>
+        <li {% if request.path == "/contact" %}class="active"{% endif %}><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

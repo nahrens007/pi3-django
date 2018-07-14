@@ -1,38 +1,9 @@
-<!DOCTYPE html>
+{% extends 'layout.html' %}
 
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Success!</title>
+{% block title %}Success!{% endblock %}
 
-    {% load static %}
-    <!-- Load site-wide CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/standard.css' %}">
+{% block main_content %}
 
-    <link rel='icon' type='image/ico' href="{% static 'temperature/favicon.ico' %}">
-	</head>
+    <h1>Successfully sent email.</h1>
 
-	<body>
-		<header>
-			{% include 'temperature/header.html' %}
-		</header>
-
-		<div id="wrapper">
-
-			<section id="left">
-			</section>
-
-			<section id="main">
-			</section>
-
-			<aside id="right">
-			</aside>
-
-		</div>
-
-		<footer>
-			{% include 'temperature/footer.html' %}
-		</footer>
-
-	</body>
-</html>
+{% endblock %}
