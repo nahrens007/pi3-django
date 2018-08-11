@@ -1,0 +1,46 @@
+{% extends 'layout.html'  %}
+
+{% block title %}Clock{% endblock %}
+
+{% block main_content %}
+    <h1 id="time"></h1>
+    <h2 id="date"></h2>
+{% endblock %}
+
+{% block endbody %}
+{{ block.super }}
+<script>
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    $('#time').html(h + ":" + m + ":" + s);
+    $('#date').html((today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear());
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+// $('#time').fitText(.38);
+startTime();
+</script>
+<style type="text/css" >
+    h1, h2 {
+        text-align: center;
+    }
+	h1 {
+	    font-size: 100px;
+	    font-size: 18vw;
+	}
+	h2 {
+	    font-size: 90px;
+	    font-size: 12vw;
+	}
+</style>
+{% endblock %}

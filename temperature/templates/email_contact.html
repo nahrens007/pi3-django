@@ -5,5 +5,8 @@
 {% block main_content %}
 
     <h1>Successfully sent email.</h1>
-
+    <h3>Subject: {{ subject }}</h3>
+    <h3>Name: {{ name }}</h3>
+    <h3>Email: {{ email }}</h3>
+    <p><h3>Message:</h3>{{ message }}</p>
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}Days{% endblock %}
+{% block main_content %}
+<h1>Days</h1>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Days</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for date in dates %}
+        <tr>
+            <td>{{ date.start }}</td>
+            <td>{{ date.end }}</td>
+            <td>{{ date.days }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block title %}Portal{% endblock %}
+{% block head %}
+<style>
+    .link {
+        text-decoration: none;
+        font-size: 16px;
+        font-family: inherit;
+        color: black;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block main_content %}
+<div class="col-sm-3">
+</div>
+<div class="col-sm-9">
+    <h1>Portal</h1>
+    {% for vurl in urls %}
+    <div class="row">
+        > <a href="{% url vurl.name %}" class="link">{{ vurl.name }}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

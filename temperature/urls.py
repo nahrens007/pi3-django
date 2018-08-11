@@ -9,4 +9,7 @@ urlpatterns = [
     path('sensorgraph', views.sensorgraph, name='sensorgraph'),
     path('days', views.days, name='days'),
     path('clock', views.clock, name='clock'),
+    path('clocksettings', views.clocksettings, name='clocksettings'),
+    path('projects', views.projects, name='projects'),
+    path('portal', views.portal, name='portal'),
 ]

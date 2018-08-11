@@ -1,0 +1,439 @@
+{% extends 'layout.html' %}
+{% block title %}Sensor Graph{% endblock %}
+{% block head %}
+		<style type="text/css">
+			chart_div {
+				width: 800px;
+			}
+			.custom_tooltip, .temp_value{
+				font-size: 24px;
+				font-family: Arial;
+				color: red;
+				background-color: black;
+				margin: 0px;
+				padding: 4px;
+			}
+			.temp_value{
+				color: lightblue;
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+
+		<!--Load the AJAX API-->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+		<script type="text/javascript">
+
+		  // Load the Visualization API and the linechart package.
+		  google.charts.load('current', {'packages':['corechart', 'line']});
+
+		  // Set a callback to run when the Google Visualization API is loaded.
+		  google.charts.setOnLoadCallback(drawChart);
+
+		  // Callback that creates and populates a data table,
+		  // instantiates the pie chart, passes in the data and
+		  // draws it.
+		  function drawChart() {
+
+			  // Create the data table.
+			  var data = new google.visualization.DataTable();
+			  data.addColumn({type:'number', label:'Entry', role: 'domain'}); 		// domain
+			  data.addColumn({type:'number', label:'This Week', role: 'data'}); 		// data1
+			  data.addColumn({type:'string', label:'This Weeks Date', role: 'tooltip', 'p': {'html': true}});// tooltip1
+			  data.addColumn({type:'number', label:'Last Week', role: 'data'});		// data2
+			  data.addColumn({type:'string', label:'Last Weeks Date', role: 'tooltip', 'p': {'html': true}});// tooltip2
+
+
+			  data.addRows([
+				[0, 82.4, '<p class="custom_tooltip">2018-08-04 00:07:29<br/>Value: <span class="temp_value">82.4F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 00:04:57<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[1, 82.4, '<p class="custom_tooltip">2018-08-04 00:37:29<br/>Value: <span class="temp_value">82.4F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 00:34:58<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[2, 82.4, '<p class="custom_tooltip">2018-08-04 01:07:30<br/>Value: <span class="temp_value">82.4F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 01:04:58<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[3, 82.4, '<p class="custom_tooltip">2018-08-04 01:37:30<br/>Value: <span class="temp_value">82.4F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 01:34:59<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[4, 82.4, '<p class="custom_tooltip">2018-08-04 02:07:31<br/>Value: <span class="temp_value">82.4F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-28 02:04:59<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[5, 82.22, '<p class="custom_tooltip">2018-08-04 02:37:31<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-28 02:35:00<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[6, 82.22, '<p class="custom_tooltip">2018-08-04 03:07:31<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-28 03:05:00<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[7, 82.22, '<p class="custom_tooltip">2018-08-04 03:37:32<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-28 03:35:01<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[8, 82.04, '<p class="custom_tooltip">2018-08-04 04:07:32<br/>Value: <span class="temp_value">82.04F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-28 04:05:01<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[9, 82.04, '<p class="custom_tooltip">2018-08-04 04:37:33<br/>Value: <span class="temp_value">82.04F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-28 04:35:01<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[10, 81.86, '<p class="custom_tooltip">2018-08-04 05:07:33<br/>Value: <span class="temp_value">81.86F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-28 05:05:02<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[11, 81.86, '<p class="custom_tooltip">2018-08-04 05:37:34<br/>Value: <span class="temp_value">81.86F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-28 05:35:02<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[12, 81.68, '<p class="custom_tooltip">2018-08-04 06:07:34<br/>Value: <span class="temp_value">81.68F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-28 06:05:03<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[13, 81.68, '<p class="custom_tooltip">2018-08-04 06:37:35<br/>Value: <span class="temp_value">81.68F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-28 06:35:03<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[14, 81.5, '<p class="custom_tooltip">2018-08-04 07:07:35<br/>Value: <span class="temp_value">81.5F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-28 07:05:04<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[15, 81.5, '<p class="custom_tooltip">2018-08-04 07:37:35<br/>Value: <span class="temp_value">81.5F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-28 07:35:04<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[16, 81.5, '<p class="custom_tooltip">2018-08-04 08:07:36<br/>Value: <span class="temp_value">81.5F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-28 08:05:05<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[17, 81.5, '<p class="custom_tooltip">2018-08-04 08:37:36<br/>Value: <span class="temp_value">81.5F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-28 08:35:05<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[18, 81.32, '<p class="custom_tooltip">2018-08-04 09:07:37<br/>Value: <span class="temp_value">81.32F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-28 09:05:06<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[19, 81.32, '<p class="custom_tooltip">2018-08-04 09:37:37<br/>Value: <span class="temp_value">81.32F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-28 09:35:06<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[20, 81.5, '<p class="custom_tooltip">2018-08-04 10:07:38<br/>Value: <span class="temp_value">81.5F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-28 10:05:06<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[21, 81.5, '<p class="custom_tooltip">2018-08-04 10:37:38<br/>Value: <span class="temp_value">81.5F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-28 10:35:07<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[22, 81.5, '<p class="custom_tooltip">2018-08-04 11:07:39<br/>Value: <span class="temp_value">81.5F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-28 11:05:07<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[23, 81.5, '<p class="custom_tooltip">2018-08-04 11:37:39<br/>Value: <span class="temp_value">81.5F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-28 11:35:08<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[24, 81.5, '<p class="custom_tooltip">2018-08-04 12:07:39<br/>Value: <span class="temp_value">81.5F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-28 12:05:08<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[25, 81.5, '<p class="custom_tooltip">2018-08-04 12:37:40<br/>Value: <span class="temp_value">81.5F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-28 12:35:09<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[26, 81.68, '<p class="custom_tooltip">2018-08-04 13:07:40<br/>Value: <span class="temp_value">81.68F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-28 13:05:09<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[27, 81.68, '<p class="custom_tooltip">2018-08-04 13:37:41<br/>Value: <span class="temp_value">81.68F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-28 13:35:10<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[28, 81.68, '<p class="custom_tooltip">2018-08-04 14:07:41<br/>Value: <span class="temp_value">81.68F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-28 14:05:10<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[29, 81.68, '<p class="custom_tooltip">2018-08-04 14:37:41<br/>Value: <span class="temp_value">81.68F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-28 14:35:11<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[30, 81.86, '<p class="custom_tooltip">2018-08-04 15:07:42<br/>Value: <span class="temp_value">81.86F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-28 15:05:11<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[31, 81.86, '<p class="custom_tooltip">2018-08-04 15:37:42<br/>Value: <span class="temp_value">81.86F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 15:35:12<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[32, 81.86, '<p class="custom_tooltip">2018-08-04 16:07:43<br/>Value: <span class="temp_value">81.86F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-28 16:05:12<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[33, 82.04, '<p class="custom_tooltip">2018-08-04 16:37:43<br/>Value: <span class="temp_value">82.04F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-28 16:35:13<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[34, 82.22, '<p class="custom_tooltip">2018-08-04 17:07:44<br/>Value: <span class="temp_value">82.22F</span></p>', 82.04, '<p class="custom_tooltip">2018-07-28 17:05:13<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[35, 82.4, '<p class="custom_tooltip">2018-08-04 17:37:44<br/>Value: <span class="temp_value">82.4F</span></p>', 82.4, '<p class="custom_tooltip">2018-07-28 17:35:13<br/>Value: <span class="temp_value">82.4F</span></p>']
+,[36, 82.58, '<p class="custom_tooltip">2018-08-04 18:07:45<br/>Value: <span class="temp_value">82.58F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 18:05:14<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[37, 82.58, '<p class="custom_tooltip">2018-08-04 18:37:45<br/>Value: <span class="temp_value">82.58F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 18:35:14<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[38, 82.94, '<p class="custom_tooltip">2018-08-04 19:07:46<br/>Value: <span class="temp_value">82.94F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 19:05:15<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[39, 83.12, '<p class="custom_tooltip">2018-08-04 19:37:46<br/>Value: <span class="temp_value">83.12F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 19:35:15<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[40, 82.94, '<p class="custom_tooltip">2018-08-04 20:07:47<br/>Value: <span class="temp_value">82.94F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 20:05:16<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[41, 83.12, '<p class="custom_tooltip">2018-08-04 20:37:47<br/>Value: <span class="temp_value">83.12F</span></p>', 82.4, '<p class="custom_tooltip">2018-07-28 20:35:16<br/>Value: <span class="temp_value">82.4F</span></p>']
+,[42, 83.12, '<p class="custom_tooltip">2018-08-04 21:07:48<br/>Value: <span class="temp_value">83.12F</span></p>', 82.4, '<p class="custom_tooltip">2018-07-28 21:05:17<br/>Value: <span class="temp_value">82.4F</span></p>']
+,[43, 83.12, '<p class="custom_tooltip">2018-08-04 21:37:48<br/>Value: <span class="temp_value">83.12F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 21:35:17<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[44, 82.94, '<p class="custom_tooltip">2018-08-04 22:07:48<br/>Value: <span class="temp_value">82.94F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 22:05:17<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[45, 82.94, '<p class="custom_tooltip">2018-08-04 22:37:49<br/>Value: <span class="temp_value">82.94F</span></p>', 82.22, '<p class="custom_tooltip">2018-07-28 22:35:18<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[46, 83.12, '<p class="custom_tooltip">2018-08-04 23:07:49<br/>Value: <span class="temp_value">83.12F</span></p>', 82.04, '<p class="custom_tooltip">2018-07-28 23:05:18<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[47, 82.94, '<p class="custom_tooltip">2018-08-04 23:37:50<br/>Value: <span class="temp_value">82.94F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-28 23:35:19<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[48, 82.76, '<p class="custom_tooltip">2018-08-05 00:07:50<br/>Value: <span class="temp_value">82.76F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-29 00:05:19<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[49, 82.76, '<p class="custom_tooltip">2018-08-05 00:37:51<br/>Value: <span class="temp_value">82.76F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-29 00:35:20<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[50, 82.76, '<p class="custom_tooltip">2018-08-05 01:07:51<br/>Value: <span class="temp_value">82.76F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-29 01:05:20<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[51, 82.58, '<p class="custom_tooltip">2018-08-05 01:37:52<br/>Value: <span class="temp_value">82.58F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-29 01:35:21<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[52, 82.58, '<p class="custom_tooltip">2018-08-05 02:07:52<br/>Value: <span class="temp_value">82.58F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 02:05:21<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[53, 82.4, '<p class="custom_tooltip">2018-08-05 02:37:52<br/>Value: <span class="temp_value">82.4F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 02:35:21<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[54, 82.4, '<p class="custom_tooltip">2018-08-05 03:07:53<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-29 03:05:22<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[55, 82.4, '<p class="custom_tooltip">2018-08-05 03:37:53<br/>Value: <span class="temp_value">82.4F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-29 03:35:23<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[56, 82.22, '<p class="custom_tooltip">2018-08-05 04:07:54<br/>Value: <span class="temp_value">82.22F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-29 04:05:23<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[57, 82.22, '<p class="custom_tooltip">2018-08-05 04:37:54<br/>Value: <span class="temp_value">82.22F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-29 04:35:23<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[58, 82.04, '<p class="custom_tooltip">2018-08-05 05:07:55<br/>Value: <span class="temp_value">82.04F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-29 05:05:24<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[59, 82.04, '<p class="custom_tooltip">2018-08-05 05:37:55<br/>Value: <span class="temp_value">82.04F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-29 05:35:24<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[60, 82.04, '<p class="custom_tooltip">2018-08-05 06:07:56<br/>Value: <span class="temp_value">82.04F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 06:05:25<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[61, 82.04, '<p class="custom_tooltip">2018-08-05 06:37:56<br/>Value: <span class="temp_value">82.04F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 06:35:25<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[62, 81.86, '<p class="custom_tooltip">2018-08-05 07:07:57<br/>Value: <span class="temp_value">81.86F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 07:05:26<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[63, 81.86, '<p class="custom_tooltip">2018-08-05 07:37:57<br/>Value: <span class="temp_value">81.86F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 07:35:26<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[64, 82.04, '<p class="custom_tooltip">2018-08-05 08:07:57<br/>Value: <span class="temp_value">82.04F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 08:05:27<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[65, 81.86, '<p class="custom_tooltip">2018-08-05 08:37:58<br/>Value: <span class="temp_value">81.86F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 08:35:27<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[66, 82.04, '<p class="custom_tooltip">2018-08-05 09:07:58<br/>Value: <span class="temp_value">82.04F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 09:05:27<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[67, 82.04, '<p class="custom_tooltip">2018-08-05 09:37:59<br/>Value: <span class="temp_value">82.04F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 09:35:28<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[68, 82.22, '<p class="custom_tooltip">2018-08-05 10:07:59<br/>Value: <span class="temp_value">82.22F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 10:05:28<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[69, 82.04, '<p class="custom_tooltip">2018-08-05 10:38:00<br/>Value: <span class="temp_value">82.04F</span></p>', 80.06, '<p class="custom_tooltip">2018-07-29 10:35:29<br/>Value: <span class="temp_value">80.06F</span></p>']
+,[70, 82.22, '<p class="custom_tooltip">2018-08-05 11:08:00<br/>Value: <span class="temp_value">82.22F</span></p>', 80.06, '<p class="custom_tooltip">2018-07-29 11:05:29<br/>Value: <span class="temp_value">80.06F</span></p>']
+,[71, 82.22, '<p class="custom_tooltip">2018-08-05 11:38:01<br/>Value: <span class="temp_value">82.22F</span></p>', 80.06, '<p class="custom_tooltip">2018-07-29 11:35:30<br/>Value: <span class="temp_value">80.06F</span></p>']
+,[72, 82.22, '<p class="custom_tooltip">2018-08-05 12:08:01<br/>Value: <span class="temp_value">82.22F</span></p>', 80.06, '<p class="custom_tooltip">2018-07-29 12:05:30<br/>Value: <span class="temp_value">80.06F</span></p>']
+,[73, 82.04, '<p class="custom_tooltip">2018-08-05 12:38:02<br/>Value: <span class="temp_value">82.04F</span></p>', 80.06, '<p class="custom_tooltip">2018-07-29 12:35:31<br/>Value: <span class="temp_value">80.06F</span></p>']
+,[74, 82.22, '<p class="custom_tooltip">2018-08-05 13:08:02<br/>Value: <span class="temp_value">82.22F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 13:05:31<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[75, 82.76, '<p class="custom_tooltip">2018-08-05 13:38:02<br/>Value: <span class="temp_value">82.76F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-29 13:35:31<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[76, 82.94, '<p class="custom_tooltip">2018-08-05 14:08:03<br/>Value: <span class="temp_value">82.94F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 14:05:32<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[77, 83.12, '<p class="custom_tooltip">2018-08-05 14:38:03<br/>Value: <span class="temp_value">83.12F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 14:35:32<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[78, 83.3, '<p class="custom_tooltip">2018-08-05 15:08:04<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 15:05:33<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[79, 83.48, '<p class="custom_tooltip">2018-08-05 15:38:04<br/>Value: <span class="temp_value">83.48F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 15:35:33<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[80, 83.66, '<p class="custom_tooltip">2018-08-05 16:08:04<br/>Value: <span class="temp_value">83.66F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-29 16:05:34<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[81, 83.84, '<p class="custom_tooltip">2018-08-05 16:38:05<br/>Value: <span class="temp_value">83.84F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-29 16:35:34<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[82, 84.02, '<p class="custom_tooltip">2018-08-05 17:08:05<br/>Value: <span class="temp_value">84.02F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-29 17:05:35<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[83, 84.56, '<p class="custom_tooltip">2018-08-05 17:38:06<br/>Value: <span class="temp_value">84.56F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-29 17:35:35<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[84, 84.38, '<p class="custom_tooltip">2018-08-05 18:08:06<br/>Value: <span class="temp_value">84.38F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-29 18:05:35<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[85, 84.56, '<p class="custom_tooltip">2018-08-05 18:38:06<br/>Value: <span class="temp_value">84.56F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-29 18:35:36<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[86, 84.56, '<p class="custom_tooltip">2018-08-05 19:08:07<br/>Value: <span class="temp_value">84.56F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-29 19:05:36<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[87, 84.74, '<p class="custom_tooltip">2018-08-05 19:38:07<br/>Value: <span class="temp_value">84.74F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-29 19:35:37<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[88, 84.56, '<p class="custom_tooltip">2018-08-05 20:08:08<br/>Value: <span class="temp_value">84.56F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-29 20:05:37<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[89, 84.74, '<p class="custom_tooltip">2018-08-05 20:38:08<br/>Value: <span class="temp_value">84.74F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-29 20:35:37<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[90, 84.92, '<p class="custom_tooltip">2018-08-05 21:08:09<br/>Value: <span class="temp_value">84.92F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 21:05:38<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[91, 84.74, '<p class="custom_tooltip">2018-08-05 21:38:09<br/>Value: <span class="temp_value">84.74F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-29 21:35:38<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[92, 84.74, '<p class="custom_tooltip">2018-08-05 22:08:10<br/>Value: <span class="temp_value">84.74F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 22:05:39<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[93, 84.74, '<p class="custom_tooltip">2018-08-05 22:38:10<br/>Value: <span class="temp_value">84.74F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 22:35:39<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[94, 84.74, '<p class="custom_tooltip">2018-08-05 23:08:11<br/>Value: <span class="temp_value">84.74F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-29 23:05:40<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[95, 84.56, '<p class="custom_tooltip">2018-08-05 23:38:11<br/>Value: <span class="temp_value">84.56F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-29 23:35:40<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[96, 84.38, '<p class="custom_tooltip">2018-08-06 00:08:12<br/>Value: <span class="temp_value">84.38F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-30 00:05:41<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[97, 84.38, '<p class="custom_tooltip">2018-08-06 00:38:12<br/>Value: <span class="temp_value">84.38F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-30 00:35:41<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[98, 84.38, '<p class="custom_tooltip">2018-08-06 01:08:12<br/>Value: <span class="temp_value">84.38F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-30 01:05:42<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[99, 84.2, '<p class="custom_tooltip">2018-08-06 01:38:13<br/>Value: <span class="temp_value">84.2F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-30 01:35:42<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[100, 84.02, '<p class="custom_tooltip">2018-08-06 02:08:13<br/>Value: <span class="temp_value">84.02F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-30 02:05:42<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[101, 84.02, '<p class="custom_tooltip">2018-08-06 02:38:14<br/>Value: <span class="temp_value">84.02F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-30 02:35:43<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[102, 83.84, '<p class="custom_tooltip">2018-08-06 03:08:14<br/>Value: <span class="temp_value">83.84F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-30 03:05:43<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[103, 83.66, '<p class="custom_tooltip">2018-08-06 03:38:15<br/>Value: <span class="temp_value">83.66F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-30 03:35:44<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[104, 83.66, '<p class="custom_tooltip">2018-08-06 04:08:15<br/>Value: <span class="temp_value">83.66F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-30 04:05:44<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[105, 83.66, '<p class="custom_tooltip">2018-08-06 04:38:16<br/>Value: <span class="temp_value">83.66F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 04:35:45<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[106, 83.66, '<p class="custom_tooltip">2018-08-06 05:08:16<br/>Value: <span class="temp_value">83.66F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 05:05:45<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[107, 83.48, '<p class="custom_tooltip">2018-08-06 05:38:17<br/>Value: <span class="temp_value">83.48F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 05:35:46<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[108, 83.48, '<p class="custom_tooltip">2018-08-06 06:08:17<br/>Value: <span class="temp_value">83.48F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 06:05:46<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[109, 83.48, '<p class="custom_tooltip">2018-08-06 06:38:18<br/>Value: <span class="temp_value">83.48F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 06:35:46<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[110, 83.48, '<p class="custom_tooltip">2018-08-06 07:08:18<br/>Value: <span class="temp_value">83.48F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 07:05:47<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[111, 83.3, '<p class="custom_tooltip">2018-08-06 07:38:18<br/>Value: <span class="temp_value">83.3F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 07:35:47<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[112, 83.3, '<p class="custom_tooltip">2018-08-06 08:08:19<br/>Value: <span class="temp_value">83.3F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 08:05:48<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[113, 83.48, '<p class="custom_tooltip">2018-08-06 08:38:19<br/>Value: <span class="temp_value">83.48F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 08:35:48<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[114, 83.3, '<p class="custom_tooltip">2018-08-06 09:08:20<br/>Value: <span class="temp_value">83.3F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 09:05:49<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[115, 83.12, '<p class="custom_tooltip">2018-08-06 09:38:20<br/>Value: <span class="temp_value">83.12F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 09:35:49<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[116, 83.3, '<p class="custom_tooltip">2018-08-06 10:08:21<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 10:05:50<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[117, 83.3, '<p class="custom_tooltip">2018-08-06 10:38:21<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 10:35:50<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[118, 83.12, '<p class="custom_tooltip">2018-08-06 11:08:21<br/>Value: <span class="temp_value">83.12F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 11:05:51<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[119, 83.3, '<p class="custom_tooltip">2018-08-06 11:38:22<br/>Value: <span class="temp_value">83.3F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-30 11:35:51<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[120, 83.3, '<p class="custom_tooltip">2018-08-06 12:08:22<br/>Value: <span class="temp_value">83.3F</span></p>', 80.24, '<p class="custom_tooltip">2018-07-30 12:05:52<br/>Value: <span class="temp_value">80.24F</span></p>']
+,[121, 83.12, '<p class="custom_tooltip">2018-08-06 12:38:23<br/>Value: <span class="temp_value">83.12F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 12:35:52<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[122, 83.3, '<p class="custom_tooltip">2018-08-06 13:08:23<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 13:05:52<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[123, 83.3, '<p class="custom_tooltip">2018-08-06 13:38:24<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 13:35:53<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[124, 83.3, '<p class="custom_tooltip">2018-08-06 14:08:24<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 14:05:53<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[125, 83.3, '<p class="custom_tooltip">2018-08-06 14:38:24<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 14:35:54<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[126, 83.3, '<p class="custom_tooltip">2018-08-06 15:08:25<br/>Value: <span class="temp_value">83.3F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 15:05:54<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[127, 83.3, '<p class="custom_tooltip">2018-08-06 15:38:25<br/>Value: <span class="temp_value">83.3F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 15:35:55<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[128, 83.48, '<p class="custom_tooltip">2018-08-06 16:08:26<br/>Value: <span class="temp_value">83.48F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 16:05:55<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[129, 83.48, '<p class="custom_tooltip">2018-08-06 16:38:26<br/>Value: <span class="temp_value">83.48F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 16:35:55<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[130, 83.3, '<p class="custom_tooltip">2018-08-06 17:08:27<br/>Value: <span class="temp_value">83.3F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 17:05:56<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[131, 83.48, '<p class="custom_tooltip">2018-08-06 17:38:27<br/>Value: <span class="temp_value">83.48F</span></p>', 80.6, '<p class="custom_tooltip">2018-07-30 17:35:56<br/>Value: <span class="temp_value">80.6F</span></p>']
+,[132, 83.48, '<p class="custom_tooltip">2018-08-06 18:08:28<br/>Value: <span class="temp_value">83.48F</span></p>', 80.42, '<p class="custom_tooltip">2018-07-30 18:05:57<br/>Value: <span class="temp_value">80.42F</span></p>']
+,[133, 83.48, '<p class="custom_tooltip">2018-08-06 18:38:28<br/>Value: <span class="temp_value">83.48F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 18:35:57<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[134, 83.48, '<p class="custom_tooltip">2018-08-06 19:08:29<br/>Value: <span class="temp_value">83.48F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-30 19:05:58<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[135, 83.66, '<p class="custom_tooltip">2018-08-06 19:38:29<br/>Value: <span class="temp_value">83.66F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-30 19:35:58<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[136, 83.84, '<p class="custom_tooltip">2018-08-06 20:08:30<br/>Value: <span class="temp_value">83.84F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-30 20:05:58<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[137, 83.84, '<p class="custom_tooltip">2018-08-06 20:38:30<br/>Value: <span class="temp_value">83.84F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-30 20:35:59<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[138, 84.02, '<p class="custom_tooltip">2018-08-06 21:08:30<br/>Value: <span class="temp_value">84.02F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-30 21:05:59<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[139, 84.02, '<p class="custom_tooltip">2018-08-06 21:38:31<br/>Value: <span class="temp_value">84.02F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-30 21:36:00<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[140, 84.02, '<p class="custom_tooltip">2018-08-06 22:08:31<br/>Value: <span class="temp_value">84.02F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-30 22:06:00<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[141, 84.02, '<p class="custom_tooltip">2018-08-06 22:38:32<br/>Value: <span class="temp_value">84.02F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-30 22:36:01<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[142, 84.02, '<p class="custom_tooltip">2018-08-06 23:08:32<br/>Value: <span class="temp_value">84.02F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-30 23:06:01<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[143, 84.02, '<p class="custom_tooltip">2018-08-06 23:38:32<br/>Value: <span class="temp_value">84.02F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-30 23:36:02<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[144, 84.02, '<p class="custom_tooltip">2018-08-07 00:08:33<br/>Value: <span class="temp_value">84.02F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 00:06:02<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[145, 83.84, '<p class="custom_tooltip">2018-08-07 00:38:33<br/>Value: <span class="temp_value">83.84F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 00:36:02<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[146, 83.84, '<p class="custom_tooltip">2018-08-07 01:08:34<br/>Value: <span class="temp_value">83.84F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 01:06:03<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[147, 83.84, '<p class="custom_tooltip">2018-08-07 01:38:34<br/>Value: <span class="temp_value">83.84F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 01:36:03<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[148, 83.66, '<p class="custom_tooltip">2018-08-07 02:08:35<br/>Value: <span class="temp_value">83.66F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 02:06:04<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[149, 83.66, '<p class="custom_tooltip">2018-08-07 02:38:35<br/>Value: <span class="temp_value">83.66F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 02:36:04<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[150, 83.48, '<p class="custom_tooltip">2018-08-07 03:08:36<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 03:06:05<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[151, 83.48, '<p class="custom_tooltip">2018-08-07 03:38:36<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 03:36:05<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[152, 83.48, '<p class="custom_tooltip">2018-08-07 04:08:37<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 04:06:06<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[153, 83.3, '<p class="custom_tooltip">2018-08-07 04:38:37<br/>Value: <span class="temp_value">83.3F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 04:36:06<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[154, 83.12, '<p class="custom_tooltip">2018-08-07 05:08:38<br/>Value: <span class="temp_value">83.12F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 05:06:07<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[155, 83.12, '<p class="custom_tooltip">2018-08-07 05:18:04<br/>Value: <span class="temp_value">83.12F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 05:36:07<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[156, 83.12, '<p class="custom_tooltip">2018-08-07 05:49:12<br/>Value: <span class="temp_value">83.12F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 06:06:07<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[157, 83.12, '<p class="custom_tooltip">2018-08-07 06:19:13<br/>Value: <span class="temp_value">83.12F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 06:36:08<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[158, 82.94, '<p class="custom_tooltip">2018-08-07 06:49:13<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 07:06:08<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[159, 82.94, '<p class="custom_tooltip">2018-08-07 07:19:14<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 07:36:09<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[160, 82.94, '<p class="custom_tooltip">2018-08-07 07:49:14<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 08:06:09<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[161, 82.94, '<p class="custom_tooltip">2018-08-07 08:19:15<br/>Value: <span class="temp_value">82.94F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 08:36:10<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[162, 82.76, '<p class="custom_tooltip">2018-08-07 08:49:15<br/>Value: <span class="temp_value">82.76F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 09:06:10<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[163, 82.58, '<p class="custom_tooltip">2018-08-07 09:19:15<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 09:36:11<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[164, 82.76, '<p class="custom_tooltip">2018-08-07 09:49:16<br/>Value: <span class="temp_value">82.76F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 10:06:11<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[165, 82.94, '<p class="custom_tooltip">2018-08-07 10:19:16<br/>Value: <span class="temp_value">82.94F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-31 10:36:11<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[166, 82.94, '<p class="custom_tooltip">2018-08-07 10:49:17<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 11:06:12<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[167, 82.76, '<p class="custom_tooltip">2018-08-07 11:19:17<br/>Value: <span class="temp_value">82.76F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 11:36:12<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[168, 82.76, '<p class="custom_tooltip">2018-08-07 11:49:18<br/>Value: <span class="temp_value">82.76F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-31 12:06:13<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[169, 82.4, '<p class="custom_tooltip">2018-08-07 12:19:18<br/>Value: <span class="temp_value">82.4F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-31 12:36:13<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[170, 82.94, '<p class="custom_tooltip">2018-08-07 12:49:19<br/>Value: <span class="temp_value">82.94F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-31 13:06:14<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[171, 82.94, '<p class="custom_tooltip">2018-08-07 13:19:19<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 13:36:14<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[172, 82.94, '<p class="custom_tooltip">2018-08-07 13:49:19<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 14:06:14<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[173, 82.58, '<p class="custom_tooltip">2018-08-07 14:19:20<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 14:36:15<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[174, 82.94, '<p class="custom_tooltip">2018-08-07 14:49:20<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 15:06:15<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[175, 82.94, '<p class="custom_tooltip">2018-08-07 15:19:21<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-07-31 15:36:16<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[176, 82.94, '<p class="custom_tooltip">2018-08-07 15:49:21<br/>Value: <span class="temp_value">82.94F</span></p>', 80.78, '<p class="custom_tooltip">2018-07-31 16:06:16<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[177, 82.94, '<p class="custom_tooltip">2018-08-07 16:19:21<br/>Value: <span class="temp_value">82.94F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 16:36:17<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[178, 83.12, '<p class="custom_tooltip">2018-08-07 16:49:22<br/>Value: <span class="temp_value">83.12F</span></p>', 81.14, '<p class="custom_tooltip">2018-07-31 17:06:17<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[179, 83.12, '<p class="custom_tooltip">2018-08-07 17:19:22<br/>Value: <span class="temp_value">83.12F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 17:36:17<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[180, 82.94, '<p class="custom_tooltip">2018-08-07 17:49:23<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 18:06:18<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[181, 82.94, '<p class="custom_tooltip">2018-08-07 18:19:23<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 18:36:18<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[182, 82.94, '<p class="custom_tooltip">2018-08-07 18:49:24<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 19:06:19<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[183, 82.94, '<p class="custom_tooltip">2018-08-07 19:19:24<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-07-31 19:36:19<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[184, 82.94, '<p class="custom_tooltip">2018-08-07 19:49:25<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 20:06:20<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[185, 82.94, '<p class="custom_tooltip">2018-08-07 20:19:25<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 20:36:20<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[186, 83.12, '<p class="custom_tooltip">2018-08-07 20:49:26<br/>Value: <span class="temp_value">83.12F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 21:06:21<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[187, 83.12, '<p class="custom_tooltip">2018-08-07 21:19:26<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-31 21:36:21<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[188, 83.3, '<p class="custom_tooltip">2018-08-07 21:49:27<br/>Value: <span class="temp_value">83.3F</span></p>', 81.68, '<p class="custom_tooltip">2018-07-31 22:06:21<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[189, 83.12, '<p class="custom_tooltip">2018-08-07 22:19:27<br/>Value: <span class="temp_value">83.12F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-31 22:36:22<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[190, 83.12, '<p class="custom_tooltip">2018-08-07 22:49:27<br/>Value: <span class="temp_value">83.12F</span></p>', 81.86, '<p class="custom_tooltip">2018-07-31 23:06:22<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[191, 83.12, '<p class="custom_tooltip">2018-08-07 23:19:28<br/>Value: <span class="temp_value">83.12F</span></p>', 81.5, '<p class="custom_tooltip">2018-07-31 23:36:23<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[192, 83.12, '<p class="custom_tooltip">2018-08-07 23:49:28<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 00:06:23<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[193, 82.94, '<p class="custom_tooltip">2018-08-08 00:19:29<br/>Value: <span class="temp_value">82.94F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 00:36:24<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[194, 82.76, '<p class="custom_tooltip">2018-08-08 00:49:29<br/>Value: <span class="temp_value">82.76F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 01:06:24<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[195, 82.94, '<p class="custom_tooltip">2018-08-08 01:19:30<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 01:36:25<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[196, 82.94, '<p class="custom_tooltip">2018-08-08 01:49:30<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 02:06:25<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[197, 82.76, '<p class="custom_tooltip">2018-08-08 02:19:31<br/>Value: <span class="temp_value">82.76F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 02:36:25<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[198, 82.76, '<p class="custom_tooltip">2018-08-08 02:49:31<br/>Value: <span class="temp_value">82.76F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 03:06:26<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[199, 82.76, '<p class="custom_tooltip">2018-08-08 03:19:31<br/>Value: <span class="temp_value">82.76F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 03:36:26<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[200, 82.58, '<p class="custom_tooltip">2018-08-08 03:49:32<br/>Value: <span class="temp_value">82.58F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 04:06:27<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[201, 82.58, '<p class="custom_tooltip">2018-08-08 04:19:32<br/>Value: <span class="temp_value">82.58F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 04:36:27<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[202, 82.4, '<p class="custom_tooltip">2018-08-08 04:49:33<br/>Value: <span class="temp_value">82.4F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 05:06:28<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[203, 82.4, '<p class="custom_tooltip">2018-08-08 05:19:33<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 05:36:28<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[204, 82.4, '<p class="custom_tooltip">2018-08-08 05:49:34<br/>Value: <span class="temp_value">82.4F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 06:06:28<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[205, 82.22, '<p class="custom_tooltip">2018-08-08 06:19:34<br/>Value: <span class="temp_value">82.22F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 06:36:29<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[206, 82.4, '<p class="custom_tooltip">2018-08-08 06:49:35<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 07:06:29<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[207, 82.4, '<p class="custom_tooltip">2018-08-08 07:19:35<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 07:36:30<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[208, 82.22, '<p class="custom_tooltip">2018-08-08 07:49:36<br/>Value: <span class="temp_value">82.22F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 08:06:30<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[209, 82.22, '<p class="custom_tooltip">2018-08-08 08:19:36<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 08:36:31<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[210, 82.22, '<p class="custom_tooltip">2018-08-08 08:49:37<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 09:06:31<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[211, 82.22, '<p class="custom_tooltip">2018-08-08 09:19:37<br/>Value: <span class="temp_value">82.22F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 09:36:32<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[212, 82.04, '<p class="custom_tooltip">2018-08-08 09:49:37<br/>Value: <span class="temp_value">82.04F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-01 10:06:32<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[213, 82.04, '<p class="custom_tooltip">2018-08-08 10:19:38<br/>Value: <span class="temp_value">82.04F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 10:36:33<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[214, 82.04, '<p class="custom_tooltip">2018-08-08 10:49:38<br/>Value: <span class="temp_value">82.04F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 11:06:33<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[215, 82.04, '<p class="custom_tooltip">2018-08-08 11:19:39<br/>Value: <span class="temp_value">82.04F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 11:36:33<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[216, 82.22, '<p class="custom_tooltip">2018-08-08 11:49:39<br/>Value: <span class="temp_value">82.22F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 12:06:34<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[217, 82.22, '<p class="custom_tooltip">2018-08-08 12:19:40<br/>Value: <span class="temp_value">82.22F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 12:36:34<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[218, 82.22, '<p class="custom_tooltip">2018-08-08 12:49:40<br/>Value: <span class="temp_value">82.22F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 13:06:35<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[219, 82.4, '<p class="custom_tooltip">2018-08-08 13:19:41<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 13:36:35<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[220, 82.4, '<p class="custom_tooltip">2018-08-08 13:49:41<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 14:06:36<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[221, 82.4, '<p class="custom_tooltip">2018-08-08 14:19:42<br/>Value: <span class="temp_value">82.4F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 14:36:36<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[222, 82.58, '<p class="custom_tooltip">2018-08-08 14:49:42<br/>Value: <span class="temp_value">82.58F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 15:06:37<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[223, 82.58, '<p class="custom_tooltip">2018-08-08 15:19:43<br/>Value: <span class="temp_value">82.58F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 15:36:37<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[224, 82.58, '<p class="custom_tooltip">2018-08-08 15:49:43<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-01 16:06:38<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[225, 82.58, '<p class="custom_tooltip">2018-08-08 16:19:43<br/>Value: <span class="temp_value">82.58F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 16:36:38<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[226, 82.58, '<p class="custom_tooltip">2018-08-08 16:49:44<br/>Value: <span class="temp_value">82.58F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 17:06:38<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[227, 82.76, '<p class="custom_tooltip">2018-08-08 17:19:44<br/>Value: <span class="temp_value">82.76F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 17:36:39<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[228, 82.94, '<p class="custom_tooltip">2018-08-08 17:49:45<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-01 18:06:39<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[229, 82.76, '<p class="custom_tooltip">2018-08-08 18:19:45<br/>Value: <span class="temp_value">82.76F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-01 18:36:40<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[230, 82.76, '<p class="custom_tooltip">2018-08-08 18:49:46<br/>Value: <span class="temp_value">82.76F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-01 19:06:40<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[231, 82.94, '<p class="custom_tooltip">2018-08-08 19:19:46<br/>Value: <span class="temp_value">82.94F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 19:36:41<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[232, 83.12, '<p class="custom_tooltip">2018-08-08 19:49:46<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 20:06:41<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[233, 83.12, '<p class="custom_tooltip">2018-08-08 20:19:47<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-01 20:36:42<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[234, 83.3, '<p class="custom_tooltip">2018-08-08 20:49:47<br/>Value: <span class="temp_value">83.3F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 21:06:42<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[235, 83.48, '<p class="custom_tooltip">2018-08-08 21:19:48<br/>Value: <span class="temp_value">83.48F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 21:36:43<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[236, 83.66, '<p class="custom_tooltip">2018-08-08 21:49:48<br/>Value: <span class="temp_value">83.66F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-01 22:06:43<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[237, 83.66, '<p class="custom_tooltip">2018-08-08 22:19:49<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 22:36:43<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[238, 83.66, '<p class="custom_tooltip">2018-08-08 22:49:49<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 23:06:44<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[239, 83.66, '<p class="custom_tooltip">2018-08-08 23:19:50<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-01 23:36:44<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[240, 83.48, '<p class="custom_tooltip">2018-08-08 23:49:50<br/>Value: <span class="temp_value">83.48F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 00:06:45<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[241, 83.48, '<p class="custom_tooltip">2018-08-09 00:19:51<br/>Value: <span class="temp_value">83.48F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 00:36:45<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[242, 83.3, '<p class="custom_tooltip">2018-08-09 00:49:51<br/>Value: <span class="temp_value">83.3F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 01:06:46<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[243, 83.48, '<p class="custom_tooltip">2018-08-09 01:19:51<br/>Value: <span class="temp_value">83.48F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 01:36:46<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[244, 83.3, '<p class="custom_tooltip">2018-08-09 01:49:52<br/>Value: <span class="temp_value">83.3F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-02 02:06:47<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[245, 83.12, '<p class="custom_tooltip">2018-08-09 02:19:52<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-02 02:36:47<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[246, 83.3, '<p class="custom_tooltip">2018-08-09 02:49:53<br/>Value: <span class="temp_value">83.3F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-02 03:06:48<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[247, 83.12, '<p class="custom_tooltip">2018-08-09 03:19:53<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-02 03:36:48<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[248, 82.94, '<p class="custom_tooltip">2018-08-09 03:49:54<br/>Value: <span class="temp_value">82.94F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-02 04:06:49<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[249, 82.94, '<p class="custom_tooltip">2018-08-09 04:19:54<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 04:36:49<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[250, 82.76, '<p class="custom_tooltip">2018-08-09 04:49:55<br/>Value: <span class="temp_value">82.76F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 05:06:49<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[251, 82.76, '<p class="custom_tooltip">2018-08-09 05:19:55<br/>Value: <span class="temp_value">82.76F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 05:36:50<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[252, 82.94, '<p class="custom_tooltip">2018-08-09 05:49:55<br/>Value: <span class="temp_value">82.94F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 06:06:50<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[253, 82.76, '<p class="custom_tooltip">2018-08-09 06:19:56<br/>Value: <span class="temp_value">82.76F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-02 06:36:51<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[254, 82.4, '<p class="custom_tooltip">2018-08-09 06:49:56<br/>Value: <span class="temp_value">82.4F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 07:06:51<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[255, 82.76, '<p class="custom_tooltip">2018-08-09 07:19:57<br/>Value: <span class="temp_value">82.76F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-02 07:36:52<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[256, 82.58, '<p class="custom_tooltip">2018-08-09 07:49:57<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 08:06:52<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[257, 82.58, '<p class="custom_tooltip">2018-08-09 08:19:58<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 08:36:53<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[258, 82.4, '<p class="custom_tooltip">2018-08-09 08:49:58<br/>Value: <span class="temp_value">82.4F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 09:06:53<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[259, 82.76, '<p class="custom_tooltip">2018-08-09 09:19:59<br/>Value: <span class="temp_value">82.76F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 09:36:54<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[260, 82.76, '<p class="custom_tooltip">2018-08-09 09:49:59<br/>Value: <span class="temp_value">82.76F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 10:06:54<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[261, 82.76, '<p class="custom_tooltip">2018-08-09 10:20:00<br/>Value: <span class="temp_value">82.76F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 10:36:55<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[262, 82.58, '<p class="custom_tooltip">2018-08-09 10:50:00<br/>Value: <span class="temp_value">82.58F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 11:06:55<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[263, 82.58, '<p class="custom_tooltip">2018-08-09 11:20:00<br/>Value: <span class="temp_value">82.58F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 11:36:56<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[264, 82.58, '<p class="custom_tooltip">2018-08-09 11:50:01<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 12:06:56<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[265, 82.58, '<p class="custom_tooltip">2018-08-09 12:20:01<br/>Value: <span class="temp_value">82.58F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 12:36:56<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[266, 82.76, '<p class="custom_tooltip">2018-08-09 12:50:02<br/>Value: <span class="temp_value">82.76F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 13:06:57<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[267, 82.58, '<p class="custom_tooltip">2018-08-09 13:20:02<br/>Value: <span class="temp_value">82.58F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 13:36:57<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[268, 82.94, '<p class="custom_tooltip">2018-08-09 13:50:03<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 14:06:58<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[269, 83.12, '<p class="custom_tooltip">2018-08-09 14:20:03<br/>Value: <span class="temp_value">83.12F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 14:36:58<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[270, 83.12, '<p class="custom_tooltip">2018-08-09 14:50:04<br/>Value: <span class="temp_value">83.12F</span></p>', 80.78, '<p class="custom_tooltip">2018-08-02 15:06:59<br/>Value: <span class="temp_value">80.78F</span></p>']
+,[271, 82.94, '<p class="custom_tooltip">2018-08-09 15:20:04<br/>Value: <span class="temp_value">82.94F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 15:36:59<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[272, 83.12, '<p class="custom_tooltip">2018-08-09 15:50:04<br/>Value: <span class="temp_value">83.12F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-02 16:07:00<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[273, 83.12, '<p class="custom_tooltip">2018-08-09 16:20:05<br/>Value: <span class="temp_value">83.12F</span></p>', 80.96, '<p class="custom_tooltip">2018-08-02 16:37:00<br/>Value: <span class="temp_value">80.96F</span></p>']
+,[274, 82.94, '<p class="custom_tooltip">2018-08-09 16:50:05<br/>Value: <span class="temp_value">82.94F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-02 17:07:01<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[275, 83.48, '<p class="custom_tooltip">2018-08-09 17:20:06<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 17:37:01<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[276, 83.48, '<p class="custom_tooltip">2018-08-09 17:50:06<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 18:07:02<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[277, 83.66, '<p class="custom_tooltip">2018-08-09 18:20:07<br/>Value: <span class="temp_value">83.66F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-02 18:37:02<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[278, 83.66, '<p class="custom_tooltip">2018-08-09 18:50:07<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-02 19:07:02<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[279, 83.84, '<p class="custom_tooltip">2018-08-09 19:20:07<br/>Value: <span class="temp_value">83.84F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-02 19:37:03<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[280, 83.66, '<p class="custom_tooltip">2018-08-09 19:50:08<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 20:07:03<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[281, 84.2, '<p class="custom_tooltip">2018-08-09 20:20:08<br/>Value: <span class="temp_value">84.2F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-02 20:37:04<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[282, 84.38, '<p class="custom_tooltip">2018-08-09 20:50:09<br/>Value: <span class="temp_value">84.38F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-02 21:07:04<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[283, 84.56, '<p class="custom_tooltip">2018-08-09 21:20:09<br/>Value: <span class="temp_value">84.56F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-02 21:37:05<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[284, 84.74, '<p class="custom_tooltip">2018-08-09 21:50:10<br/>Value: <span class="temp_value">84.74F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-02 22:07:05<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[285, 84.56, '<p class="custom_tooltip">2018-08-09 22:20:10<br/>Value: <span class="temp_value">84.56F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-02 22:37:06<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[286, 84.38, '<p class="custom_tooltip">2018-08-09 22:50:11<br/>Value: <span class="temp_value">84.38F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-02 23:07:06<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[287, 84.56, '<p class="custom_tooltip">2018-08-09 23:20:11<br/>Value: <span class="temp_value">84.56F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-02 23:37:07<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[288, 84.38, '<p class="custom_tooltip">2018-08-09 23:50:12<br/>Value: <span class="temp_value">84.38F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 00:07:07<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[289, 84.2, '<p class="custom_tooltip">2018-08-10 00:20:12<br/>Value: <span class="temp_value">84.2F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 00:37:08<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[290, 84.2, '<p class="custom_tooltip">2018-08-10 00:50:12<br/>Value: <span class="temp_value">84.2F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 01:07:08<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[291, 84.02, '<p class="custom_tooltip">2018-08-10 01:20:13<br/>Value: <span class="temp_value">84.02F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 01:37:08<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[292, 84.2, '<p class="custom_tooltip">2018-08-10 01:50:13<br/>Value: <span class="temp_value">84.2F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 02:07:09<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[293, 84.02, '<p class="custom_tooltip">2018-08-10 02:20:14<br/>Value: <span class="temp_value">84.02F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 02:37:09<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[294, 84.02, '<p class="custom_tooltip">2018-08-10 02:50:14<br/>Value: <span class="temp_value">84.02F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 03:07:10<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[295, 84.02, '<p class="custom_tooltip">2018-08-10 03:20:15<br/>Value: <span class="temp_value">84.02F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 03:37:10<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[296, 83.84, '<p class="custom_tooltip">2018-08-10 03:50:15<br/>Value: <span class="temp_value">83.84F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 04:07:11<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[297, 83.66, '<p class="custom_tooltip">2018-08-10 04:20:16<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-03 04:37:11<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[298, 83.84, '<p class="custom_tooltip">2018-08-10 04:50:16<br/>Value: <span class="temp_value">83.84F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 05:07:12<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[299, 83.66, '<p class="custom_tooltip">2018-08-10 05:20:17<br/>Value: <span class="temp_value">83.66F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-03 05:37:12<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[300, 83.84, '<p class="custom_tooltip">2018-08-10 05:50:17<br/>Value: <span class="temp_value">83.84F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-03 06:07:12<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[301, 84.02, '<p class="custom_tooltip">2018-08-10 06:20:18<br/>Value: <span class="temp_value">84.02F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-03 06:37:13<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[302, 83.84, '<p class="custom_tooltip">2018-08-10 06:50:18<br/>Value: <span class="temp_value">83.84F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 07:07:13<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[303, 83.66, '<p class="custom_tooltip">2018-08-10 07:20:19<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 07:37:14<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[304, 83.66, '<p class="custom_tooltip">2018-08-10 07:50:19<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 08:07:14<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[305, 83.66, '<p class="custom_tooltip">2018-08-10 08:20:20<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 08:37:15<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[306, 83.84, '<p class="custom_tooltip">2018-08-10 08:50:20<br/>Value: <span class="temp_value">83.84F</span></p>', 81.14, '<p class="custom_tooltip">2018-08-03 09:07:15<br/>Value: <span class="temp_value">81.14F</span></p>']
+,[307, 83.66, '<p class="custom_tooltip">2018-08-10 09:20:20<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 09:37:16<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[308, 83.66, '<p class="custom_tooltip">2018-08-10 09:50:21<br/>Value: <span class="temp_value">83.66F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 10:07:16<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[309, 83.48, '<p class="custom_tooltip">2018-08-10 10:20:21<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 10:37:16<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[310, 83.48, '<p class="custom_tooltip">2018-08-10 10:50:22<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 11:07:17<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[311, 83.48, '<p class="custom_tooltip">2018-08-10 11:20:22<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-03 11:37:17<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[312, 83.48, '<p class="custom_tooltip">2018-08-10 11:50:23<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-03 12:07:18<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[313, 83.48, '<p class="custom_tooltip">2018-08-10 12:20:23<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 12:37:18<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[314, 83.48, '<p class="custom_tooltip">2018-08-10 12:50:23<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 13:07:19<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[315, 83.48, '<p class="custom_tooltip">2018-08-10 13:20:24<br/>Value: <span class="temp_value">83.48F</span></p>', 81.32, '<p class="custom_tooltip">2018-08-03 13:37:19<br/>Value: <span class="temp_value">81.32F</span></p>']
+,[316, 83.3, '<p class="custom_tooltip">2018-08-10 13:50:24<br/>Value: <span class="temp_value">83.3F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 14:07:20<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[317, 83.48, '<p class="custom_tooltip">2018-08-10 14:20:25<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 14:37:20<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[318, 83.48, '<p class="custom_tooltip">2018-08-10 14:50:25<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 15:07:20<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[319, 83.48, '<p class="custom_tooltip">2018-08-10 15:20:26<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 15:37:21<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[320, 83.48, '<p class="custom_tooltip">2018-08-10 15:50:26<br/>Value: <span class="temp_value">83.48F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 16:07:21<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[321, 83.3, '<p class="custom_tooltip">2018-08-10 16:20:27<br/>Value: <span class="temp_value">83.3F</span></p>', 81.5, '<p class="custom_tooltip">2018-08-03 16:37:22<br/>Value: <span class="temp_value">81.5F</span></p>']
+,[322, 83.48, '<p class="custom_tooltip">2018-08-10 16:50:27<br/>Value: <span class="temp_value">83.48F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-03 17:07:22<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[323, 83.12, '<p class="custom_tooltip">2018-08-10 17:20:28<br/>Value: <span class="temp_value">83.12F</span></p>', 81.68, '<p class="custom_tooltip">2018-08-03 17:37:23<br/>Value: <span class="temp_value">81.68F</span></p>']
+,[324, 83.3, '<p class="custom_tooltip">2018-08-10 17:50:28<br/>Value: <span class="temp_value">83.3F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-03 18:07:23<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[325, 83.3, '<p class="custom_tooltip">2018-08-10 18:20:29<br/>Value: <span class="temp_value">83.3F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-03 18:37:24<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[326, 83.66, '<p class="custom_tooltip">2018-08-10 18:50:29<br/>Value: <span class="temp_value">83.66F</span></p>', 81.86, '<p class="custom_tooltip">2018-08-03 19:07:24<br/>Value: <span class="temp_value">81.86F</span></p>']
+,[327, 83.48, '<p class="custom_tooltip">2018-08-10 19:20:30<br/>Value: <span class="temp_value">83.48F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 19:37:25<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[328, 83.66, '<p class="custom_tooltip">2018-08-10 19:50:30<br/>Value: <span class="temp_value">83.66F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 20:07:25<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[329, 83.3, '<p class="custom_tooltip">2018-08-10 20:20:30<br/>Value: <span class="temp_value">83.3F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 20:37:25<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[330, 83.48, '<p class="custom_tooltip">2018-08-10 20:50:31<br/>Value: <span class="temp_value">83.48F</span></p>', 82.04, '<p class="custom_tooltip">2018-08-03 21:07:26<br/>Value: <span class="temp_value">82.04F</span></p>']
+,[331, 83.3, '<p class="custom_tooltip">2018-08-10 21:20:31<br/>Value: <span class="temp_value">83.3F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-03 21:37:26<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[332, 83.48, '<p class="custom_tooltip">2018-08-10 21:50:32<br/>Value: <span class="temp_value">83.48F</span></p>', 82.22, '<p class="custom_tooltip">2018-08-03 22:07:27<br/>Value: <span class="temp_value">82.22F</span></p>']
+,[333, 83.3, '<p class="custom_tooltip">2018-08-10 22:20:32<br/>Value: <span class="temp_value">83.3F</span></p>', 82.4, '<p class="custom_tooltip">2018-08-03 22:37:27<br/>Value: <span class="temp_value">82.4F</span></p>']
+,[334, 83.3, '<p class="custom_tooltip">2018-08-10 22:50:33<br/>Value: <span class="temp_value">83.3F</span></p>', 82.4, '<p class="custom_tooltip">2018-08-03 23:07:28<br/>Value: <span class="temp_value">82.4F</span></p>']
+,[335, 83.3, '<p class="custom_tooltip">2018-08-10 23:20:33<br/>Value: <span class="temp_value">83.3F</span></p>', 82.58, '<p class="custom_tooltip">2018-08-03 23:37:28<br/>Value: <span class="temp_value">82.58F</span></p>']
+
+			  ]);
+
+			  // Set chart options
+			  var options = {
+								tooltip: {isHtml: true},
+								'title':'Temperature Past Two Weeks',
+								'height':600,
+
+								 hAxis: {
+								   title: 'Time',
+								   textStyle: {
+									color: '#01579b',
+									fontSize: 20,
+									fontName: 'Arial',
+									bold: true,
+									italic: true
+								   },
+								   titleTextStyle: {
+									color: '#01579b',
+									fontSize: 16,
+									fontName: 'Arial',
+									bold: false,
+									italic: true
+								   }
+								 },
+								 vAxis: {
+								   title: 'Temperature',
+								   textStyle: {
+									color: '#1a237e',
+									fontSize: 24,
+									bold: true
+								   },
+								   titleTextStyle: {
+									color: '#1a237e',
+									fontSize: 24,
+									bold: true
+								  }
+								 },
+								 colors: ['#a52714', '#097138']
+
+							 };
+
+			  // Instantiate and draw our chart, passing in some options.
+			  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+			  chart.draw(data, options);
+		}
+		</script>
+{% endblock %}
+
+{% block main_content %}
+		<p><strong>Last updated: </strong>Sat Aug 11 00:00:02 2018</p>
+		<div id="chart_div"></div>
+{% endblock %}

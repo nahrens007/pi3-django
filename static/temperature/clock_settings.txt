@@ -1,0 +1,28 @@
+# A comment is a single line whose first character
+# is a non-alphabetical letter. So a symbol, or even a number...
+
+# A color value should be in the format:
+# (r,g,b) - So a valid entry would be:
+# background-color:(0,0,0)
+# which would cause the background color to be black.
+background-color::(100, 100, 100)
+font-color::(0,255,0)
+
+# Put a '%' symbol in place of spaces.
+title::Nathan's%Intra-Web%Advanced%Clock
+
+# NORMAL=0, ICONIFIED=1, MAXIMIZED_HORIZ=2, MAXIMIZED_VERT=4, MAXIMIZED_BOTH=6
+extended-state::6
+
+# Amount of seconds to wait before clock program will query this file for more updates.
+query-interval::30
+
+# Amount of milliseconds to have the clock refresh its GUI (500ms is .5s)
+refresh-interval::500
+
+# URL to the settings
+settings-url::http://www.nathanahrens.com/static/temperature/clock_settings.txt
+
+# Get updates from the settings file at the above URL
+# Technically we shouldn't get this setting from the file.
+use-net-settings::true

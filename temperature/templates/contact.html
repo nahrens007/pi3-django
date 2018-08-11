@@ -27,6 +27,7 @@
 {% endblock %}
 
 {% block main_content %}
+<p>{{ error_message }}</p>
 <form action="{% url 'contact' %}" method="post">{% csrf_token %}
 	<fieldset name="messageForm" id="messageForm">
 		<label>
