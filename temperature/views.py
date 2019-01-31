@@ -116,12 +116,27 @@ def clock(request):
     }
     return render(request, 'clock.html', context)
 
-def clocksettings(request):
+def youtube(request):
+    from django.conf import settings
+    import os
+    
+    linksPath = os.path.join(settings.YT_DIR, 'links.txt')
+    
+    # Need to write the contents of POST to the file.
+    if request.method == 'POST':
+        links = open(linksPath, 'w')
+        contents = request.POST['links']
+        links.write(contents)
+        links.close()
+    
+    # Read the contents of the file and display.
+    links = open(linksPath, 'r')
+    contents = links.read()
+    links.close()
     context = {
-        'count': '5',
-        'file':'File Contents',
+        'file':contents,
     }
-    return render(request, 'clock_settings.html', context)
+    return render(request, 'youtube.html', context)
 
 def projects(request):
     context = {}

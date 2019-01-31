@@ -102,3 +102,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join( BASE_DIR, "static/")
+YT_DIR = os.path.abspath(os.path.join(BASE_DIR, '../py-youtube-mp3'))
