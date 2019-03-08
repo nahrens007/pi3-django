@@ -149,3 +149,43 @@ def portal(request):
         urls.append(url)
     context = {'urls':urls}
     return render(request, 'portal.html', context)
+    
+def music(request):
+    from django.conf import settings
+    import json
+    import os
+    
+    linksPath = os.path.join(settings.YT_DIR, 'links.txt')
+
+    try:
+        linksF = open(linksPath, 'r')
+        fileContents = json.loads(linksF.read())
+        linksF.close()
+    except:
+        fileContents = []
+    
+    if request.method == 'POST':
+        
+        url = request.POST.get('url', '')
+        title = request.POST.get('title', '')
+        artist = request.POST.get('artist', '')
+        album = request.POST.get('album', '')
+        
+        fileContents.append({'url':url, 'title':title, 'artist':artist, 'album':album})
+        
+        f = open(linksPath, 'w')
+        f.write(json.dumps(fileContents))
+        f.close()
+        
+    contents = ''
+    
+    for song in fileContents:
+        contents += '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'.format(song['url'], song['title'], song['artist'], song['album'])
+    contents += ''
+    context = {
+        'current_contents':contents
+    }
+     
+    return render(request, 'music.html', context)
+    
+    

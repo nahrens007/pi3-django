@@ -12,4 +12,5 @@ urlpatterns = [
     path('youtube', views.youtube, name='youtube'),
     path('projects', views.projects, name='projects'),
     path('portal', views.portal, name='portal'),
+    path('music', views.music, name='music')
 ]
