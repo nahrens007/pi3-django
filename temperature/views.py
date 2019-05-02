@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . import models
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -76,6 +77,12 @@ def sensorgraph(request):
     }
     return render(request, 'sensorgraph.html', context)
 
+def clock(request):
+    context = {
+    }
+    return render(request, 'clock.html', context)
+
+@login_required
 def days(request):
     import datetime
     
@@ -104,18 +111,16 @@ def days(request):
         
         date['days']=(end-start).days
         
+        date['description'] = row.description
+        
         dates.append(date)
         
     context = {
         'dates':dates
     }
     return render(request, 'days.html', context)
-
-def clock(request):
-    context = {
-    }
-    return render(request, 'clock.html', context)
-
+    
+@login_required
 def youtube(request):
     from django.conf import settings
     import os
@@ -138,10 +143,21 @@ def youtube(request):
     }
     return render(request, 'youtube.html', context)
 
+@login_required
 def projects(request):
     context = {}
+    if request.method == 'POST':
+        if 'Power On' in request.POST:
+             #send WOL signal
+             command = '/usr/bin/wakeonlan 90:2b:34:5c:78:78'
+             import subprocess
+             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+             output, error = process.communicate()
+             context['output'] = output
+             context['error'] = error
     return render(request, 'projects.html', context)
-    
+
+@login_required    
 def portal(request):
     from temperature.urls import urlpatterns
     urls = []
@@ -149,43 +165,62 @@ def portal(request):
         urls.append(url)
     context = {'urls':urls}
     return render(request, 'portal.html', context)
-    
+
+@login_required
 def music(request):
     from django.conf import settings
     import json
     import os
     
     linksPath = os.path.join(settings.YT_DIR, 'links.txt')
-
+    nextId = 0
     try:
         linksF = open(linksPath, 'r')
-        fileContents = json.loads(linksF.read())
+        songs = json.loads(linksF.read())
         linksF.close()
     except:
-        fileContents = []
+        songs = []
     
+
+    data=''
     if request.method == 'POST':
-        
-        url = request.POST.get('url', '')
-        title = request.POST.get('title', '')
-        artist = request.POST.get('artist', '')
-        album = request.POST.get('album', '')
-        
-        fileContents.append({'url':url, 'title':title, 'artist':artist, 'album':album})
-        
+        if 'remove' in request.POST:
+            for i in range(len(songs)):
+                if songs[i]['id'] == int(request.POST['remove']):
+                    del songs[i]
+        else:
+            url = request.POST.get('url', '')
+            title = request.POST.get('title', '')
+            artist = request.POST.get('artist', '')
+            album = request.POST.get('album', '')
+            for song in songs:
+                if 'id' in song:
+                    nextId = song['id'] + 1
+            songs.append({'id':nextId, 'url':url, 'title':title, 'artist':artist, 'album':album})
+            
         f = open(linksPath, 'w')
-        f.write(json.dumps(fileContents))
+        f.write(json.dumps(songs))
         f.close()
         
-    contents = ''
-    
-    for song in fileContents:
-        contents += '<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>'.format(song['url'], song['title'], song['artist'], song['album'])
-    contents += ''
+
     context = {
-        'current_contents':contents
+        'songs':songs
     }
      
     return render(request, 'music.html', context)
-    
-    
+
+@login_required
+def movies(request):
+    rows = models.Movie.objects.all()
+    movies = []
+    for row in rows:
+        movie = {}
+        movie['title'] = row.title
+        movie['info'] = row.info
+        
+        movies.append(movie)
+        
+    context = {
+        'dates':movies
+    }
+    return render(request, 'movies.html', context)

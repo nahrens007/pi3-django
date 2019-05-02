@@ -21,5 +21,11 @@ class Days(models.Model):
     endYear = models.CharField("end year", max_length=4, default="N")
     endMonth = models.CharField("end month", max_length=2, default="N")
     endDate = models.CharField("end date", max_length=2, default="N")
+    description = models.CharField("description", max_length=255, default="")
+    
     class Meta:
         unique_together=('startYear', 'startMonth', 'startDate', 'endYear', 'endMonth', 'endDate')
+        
+class Movie(models.Model):
+    title = models.CharField("title", max_length=128, default="")
+    info = models.CharField("info", max_length=128, default="")

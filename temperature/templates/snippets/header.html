@@ -11,14 +11,23 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li {% if request.path == "/" %}class="active"{% endif %}><a href="{% url 'index' %}">Home</a></li>
-        <li {% if request.path == "/days" %}class="active"{% endif %}><a href="{% url 'days' %}">Days</a></li>
         <li {% if request.path == "/clock" %}class="active"{% endif %}><a href="{% url 'clock' %}">Clock</a></li>
         <li {% if request.path == "/sensor" %}class="active"{% endif %}><a href="{% url 'sensor' %}">Sensor</a></li>
         <li {% if request.path == "/sensorgraph" %}class="active"{% endif %}><a href="{% url 'sensorgraph' %}">Graph</a></li>
         <li {% if request.path == "/contact" %}class="active"{% endif %}><a href="{% url 'contact' %}">Contact</a></li>
+        {% if user.is_authenticated %}
+        <li {% if request.path == "/admin" %}class="active"{% endif %}><a href="{% url 'admin:index' %}">Admin</a></li>
+        <li {% if request.path == "/music" %}class="active"{% endif %}><a href="{% url 'music' %}">Music</a></li>
+        <li {% if request.path == "/movies" %}class="active"{% endif %}><a href="{% url 'movies' %}">Movies</a></li>
+        <li {% if request.path == "/days" %}class="active"{% endif %}><a href="{% url 'days' %}">Days</a></li>
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>

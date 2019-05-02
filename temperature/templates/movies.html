@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block title %}Movies{% endblock %}
+{% block main_content %}
+<h1>Movies</h1>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.info }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
