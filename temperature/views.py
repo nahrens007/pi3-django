@@ -56,9 +56,9 @@ def sensor(request):
         from django.db import connection
         cursor = connection.cursor()
         if minutes == 0: 
-            cursor.execute("SELECT * FROM sensor_readings;")
+            cursor.execute("SELECT COUNT(*) FROM sensor_readings;")
             context = {
-                'rowcount': cursor.rowcount,
+                'rowcount': cursor.fetchall(),
             }
             return render(request, 'sensor.html', context)
         else:
@@ -71,6 +71,18 @@ def sensor(request):
         
     return render(request, 'sensor.html', {})
 
+def stats(request):
+    from django.db import connection
+    cursor = connection.cursor()
+    # Select most recent row
+    #  select * from sensor_readings order by date desc limit 1;
+    cursor.execute("SELECT * FROM sensor_readings ORDER BY date DESC LIMIT 1;")
+    results = cursor.fetchall()
+    
+    return render(request, 'stats.html', {'results':results})
+        
+    # return render(request, 'stats.html', { 'results':{ 'temp': , 'heat': , 'humid': } })
+    
 def sensorgraph(request):
     context = {
 
@@ -212,15 +224,23 @@ def music(request):
 @login_required
 def movies(request):
     rows = models.Movie.objects.all()
-    movies = []
-    for row in rows:
-        movie = {}
-        movie['title'] = row.title
-        movie['info'] = row.info
+    
+    if request.method == 'POST':
+        if 'submit' in request.POST:
+            if request.POST['submit'] == 'Add':
+                movie = models.Movie(title=request.POST.get('title', ''), info=request.POST.get('info', ''))
+                movie.save()
+            elif request.POST['submit'] == 'Edit':
+                pass
+    # movies = []
+    # for row in rows:
+    #     movie = {}
+    #     movie['title'] = row.title
+    #     movie['info'] = row.info
         
-        movies.append(movie)
+    #     movies.append(movie)
         
     context = {
-        'dates':movies
+        'movies':rows
     }
     return render(request, 'movies.html', context)

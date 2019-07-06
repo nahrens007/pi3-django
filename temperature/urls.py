@@ -13,5 +13,6 @@ urlpatterns = [
     path('projects', views.projects, name='projects'),
     path('portal', views.portal, name='portal'),
     path('music', views.music, name='music'),
-    path('movies', views.movies, name='movies')
+    path('movies', views.movies, name='movies'),
+    path('stats', views.stats, name='stats')
 ]
