@@ -81,8 +81,6 @@ def stats(request):
     
     return render(request, 'stats.html', {'results':results})
         
-    # return render(request, 'stats.html', { 'results':{ 'temp': , 'heat': , 'humid': } })
-    
 def sensorgraph(request):
     context = {
 

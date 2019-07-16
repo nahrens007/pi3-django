@@ -6,14 +6,17 @@
         color: red;
     }
 </style>
+
 {% endblock %}
 
 {% block main_content %}
+
 <p class="error">{{ error_message }}</p>
 <h1>Temperature: {{ results.0.1 }}&deg;</h1>
 <h1>Humidity: {{ results.0.2 }}</h1>
 <h1>Heat Index: {{ results.0.3 }}&deg;</h1>
 <h2>Date: {{ results.0.0 }}</h2>
+
 {% endblock %}
 
 {% block endbody %}
