@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block title %}Server{% endblock %}
+{% block head %}
+{% endblock %}
+
+{% block main_content %}
+
+<form action="{% url 'server' %}" method="post">{% csrf_token %}
+	<input type="hidden" id="wake" name="wake" value="wake">
+	<input type="submit" value="Wake Server" style="margin-top: 10px" />
+</form>
+
+<form action="{% url 'server' %}" method="post">{% csrf_token %}
+	<input type="hidden" id="shutdown" name="shutdown" value="shutdown">
+	<input type="submit" value="Shutdown Server" style="margin-top: 10px" />
+</form>
+
+<form action="{% url 'server' %}" method="post">{% csrf_token %}
+	<input type="hidden" id="restart" name="restart" value="restart">
+	<input type="submit" value="Restart Server" style="margin-top: 10px" />
+</form>
+
+<form action="{% url 'server' %}" method="get">
+	<input type="submit" value="Refresh" style="margin-top: 10px" />
+</form>
+
+<h2>Status: {% if status %}Online{% else %}Offline{% endif %}</h2>
+
+<h3><a href="http://www.nathanahrens.com:8090">Minecraft Map</a></h3>
+
+<h3><a href="http://www.nathanahrens.com:8091">Server Info</a></h3>
+{% endblock %}
+
+{% block endbody %}
+{{ block.super }}
+<script>
+    
+</script>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% block title %}Wedding{% endblock %}
+{% block main_content %}
+<div class="container-fluid text-center">
+  <div class="row">
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-8 text-left">
+
+		<div id="bodycontent">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h1>Ahrens and Kunkel Wedding</h1>
+					<h2>August 22, 2020 at 2:00 PM</h2>
+					<h2 id="totalWeeks"></h2>
+					<hr />
+					<h1 id="countdown" {#class="pulsate"#}></h1>
+				</div>
+			</div>
+		</div>
+
+    </div>
+    <div class="col-sm-2 sidenav">
+
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script>
+  // Set the date we're counting down to
+  var wed = new Date('August 22, 2020 14:00:00');
+  var countDownDate = wed.getTime();
+  
+  var totalDays=daysDiff(new Date(), wed);
+  var totalWeeks=weeksDiff(new Date(), wed);
+  var remainderDays=totalDays % totalWeeks;
+  $('#totalWeeks').html(totalWeeks.toString() + " weeks and " + remainderDays.toString() + " days");
+  
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+      // Get todays date and time
+      var now = new Date().getTime();
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = checkTime(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      var minutes = checkTime(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      var seconds = checkTime(Math.floor((distance % (1000 * 60)) / 1000));
+      // Display the result in the element with id="demo"
+      $('#countdown').html(days + " days " + hours + ":"
+      + minutes + ":" + seconds);
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(x);
+        $('#countdown').html("EXPIRED");
+      }
+  }, 1000);
+// }
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+function daysDiff(date1, date2) {
+    return Math.floor((date2 - date1) / (1000*60*60*24));
+}
+function weeksDiff(date1, date2) {
+    return Math.floor(((date2 - date1) / (1000*60*60*24))/7);
+}
+</script>
+<style type="text/css" >
+    #bodycontent {
+        text-align: center;
+        margin-top: 10%;
+    }
+    h2 {
+        font-size: 60px;
+	    font-size: 6vw;
+    }
+	#countdown {
+	    font-size: 80px;
+	    font-size: 8vw;
+	}
+  .pulsate {
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+  }
+  @-webkit-keyframes pulsate {
+      0% {
+          color: green;
+      }
+      
+      100% {
+          color: black;
+      }
+  }
+</style>
+{% endblock %}
