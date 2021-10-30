@@ -3,3 +3,4 @@
 local_settings.py
 __pycache__/
 djangowwwenv/
+send_mail.py
