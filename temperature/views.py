@@ -1,21 +1,26 @@
 from django.shortcuts import render
 from . import models
 from django.contrib.auth.decorators import login_required
+import requests
+import json
+
+requests.packages.urllib3.disable_warnings()
 
 # Create your views here.
 def index(request):
 
     # Create new visitor entry in table
-    visitor = models.Visitor()
-    visitor.save()
+    #visitor = models.Visitor()
+    #visitor.save()
 
     # Get the total count of visitors in table
-    count = str(models.Visitor.objects.all().count())
+    #count = str(models.Visitor.objects.all().count())
 
-    context = {
-        'visit_count': count,
-    }
+    context = {}
     return render(request, 'index.html', context)
+
+def resume(request):
+    return render(request, 'resume.html', {})
 
 def contact(request):
     if request.method == 'POST':
@@ -25,13 +30,30 @@ def contact(request):
         subject = request.POST['subject']
         message = request.POST['message']
         
+        fail_cont = {
+            'error_message':'You must complete the reCAPTCHA.',
+            'subject':subject,
+            'first_name':first_name,
+            'last_name':last_name,
+            'email':email,
+            'message':message
+        }
+        # Google Recaptcha code
+        resp = verify_recap(request.POST['g-recaptcha-response'])
+        if resp.status_code==200 and resp.text:
+            res = json.loads(resp.text)
+            if res['success'] != True or res['hostname'] != 'www.nathanahrens.com':
+                return render(request, 'contact.html', fail_cont)
+        else:
+            return render(request, 'contact.html', fail_cont)
+        
         contact = models.Contact(first_name=first_name, last_name=last_name, email=email, subject=subject, message=message)
         contact.save()
         
         msg = 'First Name: ' + first_name + '\nLast Name: ' + last_name + '\nSubject: ' + subject + '\nEmail: ' + email + '\nMessage: \n' + message
         
         from django.core.mail import send_mail
-        send_mail('Contact Website', msg, 'contact@nathanahrens.com', ['contact@nathanahrens.com'],fail_silently=True)
+        send_mail('nathanahrens.com', msg, 'contact@nathanahrens.com', ['contact@nathanahrens.com'],fail_silently=True)
         
         context = {
             'subject':subject,
@@ -42,9 +64,7 @@ def contact(request):
         return render(request, 'email_contact.html', context)
         
     # default form
-    context = {
-    }
-    return render(request, 'contact.html', context)
+    return render(request, 'contact.html', {})
 
 def sensor(request):
     if 'min' in request.GET:
@@ -80,7 +100,22 @@ def stats(request):
     results = cursor.fetchall()
     
     return render(request, 'stats.html', {'results':results})
-        
+    
+def server(request):
+    import os
+    hostname='warehouse'
+    if request.method == 'POST':
+        if 'wake' in request.POST:
+            #send WOL /usr/bin/wakeonlan 90:2b:34:5c:78:78
+            os.system('/usr/bin/wakeonlan 90:2b:34:5c:78:78')
+        if 'shutdown' in request.POST:
+            os.system('/usr/bin/curl -v http://warehouse/command/shutdown')
+        if 'restart' in request.POST:
+            os.system('/usr/bin/curl -v http://warehouse/command/restart')
+    response = os.system("ping -c 1 -w2 " + hostname + " > /dev/null 2>&1")
+    status=True if response == 0 else False
+    return render(request, 'server.html', {'status':status})
+    
 def sensorgraph(request):
     context = {
 
@@ -91,6 +126,11 @@ def clock(request):
     context = {
     }
     return render(request, 'clock.html', context)
+
+def wedding(request):
+    context = {
+    }
+    return render(request, 'wedding.html', context)
 
 @login_required
 def days(request):
@@ -153,18 +193,8 @@ def youtube(request):
     }
     return render(request, 'youtube.html', context)
 
-@login_required
 def projects(request):
     context = {}
-    if request.method == 'POST':
-        if 'Power On' in request.POST:
-             #send WOL signal
-             command = '/usr/bin/wakeonlan 90:2b:34:5c:78:78'
-             import subprocess
-             process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
-             output, error = process.communicate()
-             context['output'] = output
-             context['error'] = error
     return render(request, 'projects.html', context)
 
 @login_required    
@@ -242,3 +272,9 @@ def movies(request):
         'movies':rows
     }
     return render(request, 'movies.html', context)
+
+def verify_recap(code):
+    session = requests.session()
+    return session.post('https://www.google.com/recaptcha/api/siteverify',
+                data={'secret':'6Lf8RLUUAAAAADgAjL7kJQOD3WvwQvfTsmBTFYMD','response':code},
+                verify=False)

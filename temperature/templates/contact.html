@@ -3,6 +3,9 @@
 {% block title %}Contact{% endblock %}
 
 {% block head %}
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'temperature/style/contact_form.css' %}">
 <script>
@@ -27,35 +30,35 @@
 {% endblock %}
 
 {% block main_content %}
-<p>{{ error_message }}</p>
+<p class="text-center" style="color:red;">{{ error_message }}</p>
 <form action="{% url 'contact' %}" method="post">{% csrf_token %}
 	<fieldset name="messageForm" id="messageForm">
 		<label>
 		First Name
-		<input type="text" placeholder="Supply your first name" name="first_name" id="first_name" required="required" />
+		<input type="text" placeholder="Your First Name" name="first_name" id="first_name" required="required" value="{{ first_name }}" />
 		</label>
 		<label>
 		Last Name
-		<input type="text" placeholder="Supply your last name" name="last_name" id="last_name" required="required" />
+		<input type="text" placeholder="Your Last Name" name="last_name" id="last_name" required="required" value="{{ last_name }}" />
 		</label>
 
 		<label>
 		E-mail
-		<input type="email" placeholder="Supply a valid e-mail address" name="email" id="email" required="required" />
+		<input type="email" placeholder="Your Email Address" name="email" id="email" required="required" value="{{ email }}" />
 		</label>
 
 		<label>
 		Subject
-		<input type="text" placeholder="Supply a subject" name="subject" id="subject" required="required" />
+		<input type="text" placeholder="Subject" name="subject" id="subject" required="required" value="{{ subject }}" />
 		</label>
 
 		<label>
 		Message <br />(<p id="current_char">0/1000</p>)
-		<textarea name="message" id="message" maxlength="1000" onkeyup="update();"></textarea>
+		<textarea name="message" id="message" maxlength="1000" onkeyup="update();">{{ message }}</textarea>
 		</label>
 
 		<input type="submit" name="submit" id="submit" value="Submit Message" />
-
+        <div class="g-recaptcha" data-sitekey="6Lf8RLUUAAAAAHTGbOosJ8O-3zLFValblSgfHBMr"></div>
 	</fieldset>
 </form>
 {% endblock %}

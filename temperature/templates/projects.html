@@ -8,14 +8,80 @@
 
 {% block main_content %}
     <h1>Projects</h1>
-    <h2>Warehouse</h2>
-    <form action="{% url 'projects' %}" method="post">{% csrf_token %}
-        <input type="submit" value="Power On" />
-        <p>{{ output }}</p>
-        <p>{{ error }}</p>
-    </form>
+    <p>For details on each project, please refer to my <a target="_blank" href="https://github.com/redninja2">GitHub</a> page.</p>
+    <button type="button" class="custom-collapsible">Binary Search Tree GUI</button>
+    <div class="custom-collapsible-content">
+        <h2>C++</h2>
+    </div>
+
+    <button type="button" class="custom-collapsible">Jamf Scripts</button>
+    <div class="custom-collapsible-content">
+        <h2>Python / Bash</h2>
+    </div>
+
+    <button type="button" class="custom-collapsible">Blackboard Learn API Interface</button>
+    <div class="custom-collapsible-content">
+        <h2>Python / Django / HTML / CSS</h2>
+    </div>
+
+    <button type="button" class="custom-collapsible">Personal Website</button>
+    <div class="custom-collapsible-content">
+        <h2>Python / Django / HTML / CSS</h2>
+        <a href="https://www.nathanahrens.com">Link</a>
+    </div>
+
+    <button type="button" class="custom-collapsible">Website for Wedding</button>
+    <div class="custom-collapsible-content">
+        <h2>Python / Django / HTML / CSS</h2>
+        <a href="https://lilysoulnate.nathanahrens.com">Link</a>
+    </div>
+
+
 {% endblock %}
 
 {% block endbody %}
 {{ block.super }}
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.custom-collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.custom-collapsible-content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+<script>
+var coll = document.getElementsByClassName("custom-collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
 {% endblock %}
